@@ -6,8 +6,8 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 const config = require('./webpack.config.base')('dev')
 const postcss = require('./postcss.conf')()
-// cheap-module-eval-source-map is faster for development
 
+// cheap-module-eval-source-map is faster for development
 config.devtool = '#cheap-module-eval-source-map'
 
 // add hot-reload related code to entry chunks
@@ -33,6 +33,9 @@ config.plugins = (config.plugins || []).concat([
       VUE_ENV: '"client"',
     },
   }),
+  // new webpack.optimize.MinChunkSizePlugin({
+  //   minChunkSize: 100000 // Minimum number of characters
+  // }),
   // 全局开启代码热替换
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoEmitOnErrorsPlugin(),

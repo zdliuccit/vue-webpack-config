@@ -8,15 +8,10 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const config = require('./webpack.config.base')('prod')
 const postcss = require('./postcss.conf')()
 
-// chunkhash是根据文件内容生成hash
 config.output.filename = '[name].[chunkhash:7].js'
 config.output.chunkFilename = '[id].[chunkhash:7].js'
 
-// whether to generate source map for production files.
-// disabling this can speed up the build.
-const SOURCE_MAP = false
-
-config.devtool = SOURCE_MAP ? 'source-map' : false
+config.devtool = false
 
 config.module.rules.push(
   {
@@ -29,29 +24,38 @@ config.module.rules.push(
   {
     test: /\.styl$/,
     use: ExtractTextPlugin.extract({
-      use: ['css-loader', { loader: 'postcss-loader', options: { plugins: postcss } }, 'stylus-loader'],
+      use: ['css-loader', 'stylus-loader', { loader: 'postcss-loader', options: { plugins: postcss } }],
       fallback: 'vue-style-loader',
     }),
   }
 )
 
 config.plugins = (config.plugins || []).concat([
-  // http://vuejs.github.io/vue/workflow/production.html
+  // 定义全局常量
   new webpack.DefinePlugin({
     'process.env': {
-      NODE_ENV: '"production"',
-      VUE_ENV: '"client"',
+      //注意一个单引号一个双引号…… 这里是要将 "production" 替换到文件里面
+      NODE_ENV: JSON.stringify("producion"),
+      VUE_ENV: JSON.stringify("client"),
     },
   }),
+  // 合并公共模块为单独文件
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    filename: 'vendor-[hash].min.js',
+  }),
+  // js压缩
   new webpack.optimize.UglifyJsPlugin({
+    comments: false,        // 去掉注释
     compress: {
-      warnings: false,
+      warnings: false, // 不显示警告
+      drop_console: false,
     },
   }),
-  // extract css into its own file
+  // 分离css文件
   new ExtractTextPlugin('[name].[contenthash:8].css'),
-  // Compress extracted CSS. We are using this plugin so that possible
-  // duplicated CSS from different components can be deduped.
+
+  // optimize \ minimize CSS assets
   new OptimizeCSSPlugin({
     cssProcessorOptions: {
       safe: true,

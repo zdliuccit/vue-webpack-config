@@ -52,7 +52,7 @@ axiosInstance.interceptors.response.use(
  * @returns {Function} ctx function
  */
 module.exports = function () {
-  return function httpMiddelware(ctx, next) {
+  return function httpMiddelware (ctx, next) {
     const http = {}
     methods.forEach(method => {
       http[method] = (...args) => {

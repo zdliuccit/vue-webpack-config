@@ -1,19 +1,30 @@
 <template>
   <div class="test" style="border-color: aliceblue">
-    <div class="cc_test">测试是试77711ss7试</div>
+    <div class="cc_test" @click="sendGet">测试是试77711ss22227试{{ss}}</div>
   </div>
 </template>
 <script type="text/babel">
   export default {
     data () {
       return {
-        ss: 11
+        ss: 2222
       }
     },
     created () {
-      console.log(1122)
     },
-    methods: {}
+    methods: {
+      sendGet() {
+        console.log(11)
+        this.$http.get('/api/goods/account/config')
+          .then((resp) => {
+            console.log(resp)
+          })
+          .catch(() => {
+            console.log('error............')
+          })
+        console.log(2)
+      },
+    }
   }
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>

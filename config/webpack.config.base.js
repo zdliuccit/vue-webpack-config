@@ -14,7 +14,7 @@ const webpackAppConfig = appConfig.webpack
 // 版本号
 const appVersion = new Date().getTime()
 function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+  return path.resolve(process.cwd(), dir)
 }
 
 module.exports = function (env) {
@@ -25,7 +25,7 @@ module.exports = function (env) {
     // 输出模块配置
     output: {
       // 输出到这个目录下
-      path: path.resolve(process.cwd(), 'public'),
+      path: resolve('public'),
       // 生成的文件名, [name] 即为entry配置中的key
       filename: '[name].js',
       // 异步模块文件名
@@ -41,10 +41,6 @@ module.exports = function (env) {
         'vue': 'vue/dist/vue.esm.js',
         '@': resolve('client'),
       }
-    },
-    devServer: {
-      contentBase: path.resolve(process.cwd(), 'client'),
-      hot: true
     },
     module: {
       rules: [
@@ -98,6 +94,11 @@ module.exports = function (env) {
         filename: 'index.html',
         template: path.join(process.cwd(), 'index.template.ejs'),
         inject: true,
+        minify: {
+          removeComments: true,        //去注释
+          collapseWhitespace: true,    //压缩空格
+          removeAttributeQuotes: true  //去除属性引用
+        },
       }),
     ],
   }
