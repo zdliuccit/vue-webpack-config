@@ -21,7 +21,7 @@ module.exports = function (env) {
   const vueLoaderConfig = getVueLoaderConfig(env)
   const config = {
     // 入口模块配置
-    entry: path.join(__dirname, './../client/index.js'),
+    entry: appConfig.webpack.entry,
     // 输出模块配置
     output: {
       // 输出到这个目录下
@@ -30,6 +30,7 @@ module.exports = function (env) {
       filename: '[name].js',
       // 异步模块文件名
       chunkFilename: '[id].js',
+      publicPath: '/'
     },
     // 寻找模块时的一些缺省设置
     resolve: {
@@ -40,6 +41,10 @@ module.exports = function (env) {
         'vue': 'vue/dist/vue.esm.js',
         '@': resolve('client'),
       }
+    },
+    devServer: {
+      contentBase: path.resolve(process.cwd(), 'client'),
+      hot: true
     },
     module: {
       rules: [

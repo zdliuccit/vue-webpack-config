@@ -8,7 +8,7 @@ const common = 'dev'
 // 菜单
 const menu = ''
 module.exports = {
-  appPort: 9008,
+  appPort: 9009,
   proxy: {
     '/member/api/common-service': constants.loginTargets[menu || common],
   },

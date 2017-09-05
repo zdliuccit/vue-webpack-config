@@ -1,6 +1,6 @@
 <template>
   <div class="test" style="border-color: aliceblue">
-    <div class="cc_test">22211121112</div>
+    <div class="cc_test">测试是试77711ss7试</div>
   </div>
 </template>
 <script type="text/babel">
@@ -11,6 +11,7 @@
       }
     },
     created () {
+      console.log(1122)
     },
     methods: {}
   }

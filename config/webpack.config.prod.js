@@ -1,20 +1,12 @@
 /**
  * Created by liuzhengdong on 2017/7/6.
  */
+const path = require('path')
 const webpack = require('webpack')
-const config = require('webpack.config.base')('prod')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const path = require('path')
-
-const upyunConfig = require(path.join(process.cwd(), 'upyun.config.js'))
-if (!upyunConfig) {
-  throw new Error('Upyun config DOES NOT exist!')
-}
-
-// 干掉bucket的  xkeshi-  前缀，就是子域名
-const subDomain = upyunConfig.builtFilesBucket.replace(/^xkeshi-/, '')
-config.output.publicPath = `//${subDomain}.xkeshi.cn${upyunConfig.options.remotePathPrefix}/`
+const config = require('./webpack.config.base')('prod')
+const postcss = require('./postcss.conf')()
 
 // chunkhash是根据文件内容生成hash
 config.output.filename = '[name].[chunkhash:7].js'
@@ -30,14 +22,14 @@ config.module.rules.push(
   {
     test: /\.css$/,
     use: ExtractTextPlugin.extract({
-      use: ['css-loader'],
+      use: ['css-loader', { loader: 'postcss-loader', options: { plugins: postcss } }],
       fallback: 'vue-style-loader',
     }),
   },
   {
     test: /\.styl$/,
     use: ExtractTextPlugin.extract({
-      use: ['css-loader', 'postcss-loader', 'stylus-loader?resolve url'],
+      use: ['css-loader', { loader: 'postcss-loader', options: { plugins: postcss } }, 'stylus-loader'],
       fallback: 'vue-style-loader',
     }),
   }
