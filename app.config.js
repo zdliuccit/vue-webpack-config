@@ -2,18 +2,6 @@
 const path = require('path')
 let serverConfig = require('./server.config')
 
-try {
-  serverConfig = require('./server.config')
-} catch (e) {
-  if (!serverConfig) {
-    /* eslint-disable no-console */
-    console.error('Loading "server.config.js" FAILED. If it DOES NOT exist, you can consult with "server.config.example.js"')
-    console.error(e.stack)
-    /* eslint-enable no-console */
-    process.exit(1)
-  }
-}
-
 module.exports = {
   appServerPath: '',
   // eslint中验证jsdoc的级别

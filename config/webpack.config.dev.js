@@ -6,11 +6,15 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 const config = require('./webpack.config.base')('dev')
 const postcss = require('./postcss.conf')()
+// cheap-module-eval-source-map is faster for development
 
 config.devtool = '#cheap-module-eval-source-map'
+
+// add hot-reload related code to entry chunks
 Object.keys(config.entry).forEach(function (name) {
-  config.entry[name] = ['./config/dev-client'].concat(config.entry[name])
+  config.entry[name] = ['webpack-hot-middleware/client?path=__webpack_hmr&timeout=2000&reload=true'].concat(config.entry[name])
 })
+
 config.module.rules.push(
   {
     test: /\.css$/,
@@ -32,7 +36,6 @@ config.plugins = (config.plugins || []).concat([
   // 全局开启代码热替换
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoEmitOnErrorsPlugin(),
-
   new FriendlyErrorsPlugin(),
 ])
 
