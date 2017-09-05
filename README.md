@@ -43,7 +43,6 @@ latest是一个特殊的presets，包括了es2015，es2016，es2017的插件（�
 * `babel-plugin-lodash`  Lodash 需要安装插件babel-plugin-lodash来更新 Babel配置文件
 
 
-* `eventsource-polyfill` ServiceStack兼容IE8
 * `extract-text-webpack-plugin` 抽离js中的css样式
 * `url-loader`、`file-loader`打包文件和图片 url-loader是对file-loader的上层封装，比如webpack中对图片的加载器配置
 ```js

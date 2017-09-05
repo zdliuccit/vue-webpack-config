@@ -1,8 +1,5 @@
 {
   "presets": [
     "env"
-  ],
-  "plugins": [
-    "lodash"
   ]
 }
