@@ -5,20 +5,24 @@ const Koa = require('koa')
 const KoaRouter = require('koa-router')()
 const webpack = require('webpack')
 const currentIP = require('ip').address()
+
 const opn = require('opn')
+const loggerMiddleware = require('koa-logger')()
 const convert = require('koa-convert')
-const proxyMiddleware = require('koa-better-http-proxy')
 const webpackDevMiddleware = require('koa-webpack-dev-middleware')
 const webpackHotMiddleware = require('koa-webpack-hot-middleware')
-const historyApiFallback = require('koa-connect-history-api-fallback')
 
-const httpMiddleware = require('./utils/http')
 const appConfig = require('./../app.config')
 const config = require('./webpack.config.dev')
 const clientCompiler = webpack(config)
-const proxyTable = appConfig.proxy
+
+const setCookieMiddleware = require('./utils/setCookieMiddleWare')
+const httpMiddleware = require('./utils/httpMiddleWare')
+const proxyMiddleware = require('./utils/proxyMiddleWare')
+const errorMiddleware = require('./utils/errorMiddleWare')
 
 const app = new Koa()
+const uri = 'http://' + currentIP + ':' + appConfig.appPort
 
 const devMiddleware = webpackDevMiddleware(clientCompiler, {
   publicPath: config.output.publicPath,
@@ -26,41 +30,52 @@ const devMiddleware = webpackDevMiddleware(clientCompiler, {
   stats: {
     colors: true,
   },
-  noInfo: true,
+  noInfo: false,
   watchOptions: {
     aggregateTimeout: 300,
     poll: true
   },
 })
-app.use(convert(devMiddleware))
-app.use(convert(webpackHotMiddleware(clientCompiler)))
+// 中间件,一组Generator函数
+const middleWares = [
+  // 日志记录
+  loggerMiddleware,
+  // 压缩响应
+  require('koa-compress')(),
+  // 错误处理
+  errorMiddleware,
+  // webpack开发中间件
+  convert(devMiddleware),
+  // webpack热替换中间件
+  convert(webpackHotMiddleware(clientCompiler)),
+  // 手动设置cookie方法
+  setCookieMiddleware,
+  // 路由
+  KoaRouter.middleware(),
+  // http中间件
+  httpMiddleware(),
+  // 插入自定义中间件
+  ...appConfig.middleWares,
+  // 代理
+  proxyMiddleware(),
+]
 
-app.use(convert(historyApiFallback({
-  // logger: console.log.bind(console),
-  verbose: false
-})))
-
-app.use(httpMiddleware())
-app.use(KoaRouter.middleware())
-
-// // proxy api requests
-// Object.keys(proxyTable).forEach(function (context) {
-//   var options = proxyTable[context]
-//   if (typeof options === 'string') {
-//     options = { target: options }
-//   }
-//   app.use(proxyMiddleware(options.filter || context, options))
-// })
+middleWares.forEach((middleware) => {
+  if (!middleware) {
+    return
+  }
+  app.use(middleware)
+})
 
 console.log('> Starting dev server...')
-const uri = 'http://' + currentIP + ':' + appConfig.appPort
+
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   opn(uri)
 })
 
 app.on('error', (err) => {
-  logger.error('Server error: \n%s\n%s ', err.stack || '')
+  console.error('Server error: \n%s\n%s ', err.stack || '')
 })
 
 const server = app.listen(appConfig.appPort)

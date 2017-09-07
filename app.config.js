@@ -22,4 +22,6 @@ module.exports = {
     resolveAlias: {},
     rules: [],
   },
+  // 自定义中间件 推荐async函数写法
+  middleWares: []
 }

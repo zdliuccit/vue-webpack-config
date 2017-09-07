@@ -4,12 +4,12 @@
  */
 const constants = require('./constants')
 // 通用后台&登陆&菜单,三端同步切换，dev/test/prepub/product
-const common = 'dev'
+const common = 'test'
 // 菜单
 const menu = ''
 module.exports = {
   appPort: 9009,
   proxy: {
-    '/member/api/common-service': constants.loginTargets[menu || common],
+    '/member/api/goods': constants.loginTargets[menu || common],
   },
 }

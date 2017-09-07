@@ -1,28 +1,26 @@
 <template>
-  <div class="test" style="border-color: aliceblue">
-    <div class="cc_test" @click="sendGet">测试是试77711ss22227试{{ss}}</div>
+  <div class="test">
+    <div class="cc_test" @click="sendGet">demo{{ss}}</div>
   </div>
 </template>
 <script type="text/babel">
   export default {
     data () {
       return {
-        ss: 2222
+        ss: 11112222222
       }
     },
     created () {
     },
     methods: {
       sendGet() {
-        console.log(11)
-        this.$http.get('/api/goods/account/config')
+        this.http.post('/member/api/goods/account/config', { ss: 11 })
           .then((resp) => {
             console.log(resp)
           })
           .catch(() => {
             console.log('error............')
           })
-        console.log(2)
       },
     }
   }
