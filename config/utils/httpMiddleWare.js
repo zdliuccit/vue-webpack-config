@@ -2,8 +2,6 @@
  * http中间件
  */
 const axios = require('axios')
-// const beautifyJSON = require('../utils/beautify-json')
-// const logger = require('../utils/log')('koa2-vue2-sdk:http')
 
 const methods = ['get', 'post', 'put', 'delete']
 
@@ -22,11 +20,10 @@ const axiosInstance = axios.create({
   headers: defaultHeaders,
 })
 
+// http request 拦截器
 axiosInstance.interceptors.request.use(
   (config) => {
     config._reqeustStartTimestamp = Date.now()
-    // 与下面的<-- Server response for 保持队形整齐
-    // logger.debug(`--> Remote server request:     '${config.method.toUpperCase()} ${config.url}'`)
     return config
   },
   (error) => {
@@ -34,12 +31,9 @@ axiosInstance.interceptors.request.use(
   }
 )
 
+// http response 拦截器
 axiosInstance.interceptors.response.use(
   (response) => {
-    const config = response.config
-    /* eslint-disable max-len */
-    // logger.debug(`<-- Remote server response(${response.status}) costing ${Date.now() - config._reqeustStartTimestamp}ms for '${config.method.toUpperCase()} ${config.url}': ${beautifyJSON(response.data)}`)
-    /* eslint-enable */
     return response
   },
   (error) => {
@@ -52,7 +46,7 @@ axiosInstance.interceptors.response.use(
  * @returns {Function} ctx function
  */
 module.exports = function () {
-  return function httpMiddelware (ctx, next) {
+  return function httpMiddleware (ctx, next) {
     const http = {}
     methods.forEach(method => {
       http[method] = (...args) => {

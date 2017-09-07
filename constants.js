@@ -8,6 +8,6 @@ module.exports = {
   // 登陆
   loginTargets: {
     dev: 'http://vip.dev.xkeshi.so:8082/login',
-    test: 'http://vip.test.xkeshi.so:8082/login',
+    test: 'http://shop.test.xkeshi.so:8082',
   },
 }
