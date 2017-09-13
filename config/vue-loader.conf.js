@@ -6,7 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
  * @param {string} env 环境，可能的值prod|dev
  * @return {object} 配置
  **/
-console.log()
 module.exports = function (env) {
   const config = {
     loader: 'vue-loader',
