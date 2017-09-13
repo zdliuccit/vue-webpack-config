@@ -6,32 +6,25 @@ const urlUtils = require('url')
 const koaHttpProxy = require('koa-better-http-proxy')
 const compose = require('koa-compose')
 const appConfig = require('./../../app.config')
+const { IS_DEBUG, IS_SERVER_PRODUCTION } = require('./env')
 
-const needToken = !!appConfig.token
-let tokenManager
-if (needToken) {
-  tokenManager = require('./token')(appConfig.token)
-}
+// const needToken = !!appConfig.token
+// let tokenManager
+// if (needToken) {
+//   tokenManager = require('./token')(appConfig.token)
+// }
 
-const IS_DEBUG = process.env.NODE_ENV === 'development' // 是否开发模式
 /**
  * 获取代理配置
  * @return {*} 代理配置
  */
 function getProxyConfig () {
+  // 开发模式每次重新读取
   if (!IS_DEBUG) {
     return appConfig.proxy
   }
-  // 开发模式每次改写代理配置，都清除缓存, 重新读取,
-  // 开发模式每次都join一遍，忽略性能问题啦嘿嘿
-  const configPath = path.join(process.cwd(), 'server.config.js')
-
-  delete require.cache[configPath]
-
-  const serverConfig = require(configPath)
-
-  console.log(`Got newest proxy mapping: ${JSON.stringify(serverConfig.proxy)}`)
-
+  // 生产环境读取
+  const serverConfig = require(path.join(process.cwd(), 'server.config.js'))
   return serverConfig.proxy
 }
 
@@ -40,12 +33,12 @@ function getProxyConfig () {
  * @return {Function} koa middleware
  */
 module.exports = function (/* opts */) {
-  // eslint-disable-next-line
+
   async function preProxyMiddleware (ctx, next) {
     const url = ctx.url
     let proxyTarget
     let proxyConfig = getProxyConfig()
-
+    debugger
     // 非生产环境，才允许后端进行调试
     if (!IS_SERVER_PRODUCTION) {
       // 如果请求头里带了`proxyconfig`(node拿到的都是小写)字段,则将其与项目代理配置合并,用于调试
