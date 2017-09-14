@@ -14,7 +14,7 @@
     },
     methods: {
       sendGet() {
-        this.http.post('/member/api/goods/account/config', { ss: 11 })
+        this.http.get('/member/cardLevel/query')
           .then((resp) => {
             console.log(resp)
           })

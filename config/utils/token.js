@@ -38,8 +38,7 @@ module.exports = function createRedis (/* tokenConfig */) {
       if (!responseToken) {
         return
       }
-      console.log(`Token found: 
-      ${responseToken}', it will be set to cookie.`)
+      console.log(`Token found: ${responseToken}', it will be set to cookie.`)
       // 这里koa-better-http-proxy已经把代理响应头复制到原始响应头了
       ctx.cookies.set(cookieConfig.name, responseToken, cookieConfig)
 

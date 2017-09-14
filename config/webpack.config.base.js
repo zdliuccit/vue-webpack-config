@@ -39,6 +39,7 @@ module.exports = function (env) {
       // 别名，可以直接使用别名来代表设定的路径以及其他
       alias: {
         'vue': 'vue/dist/vue.esm.js',
+        '@config': resolve('config'),
         '@': resolve('client'),
       }
     },

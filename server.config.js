@@ -10,6 +10,7 @@ const menu = ''
 module.exports = {
   appPort: 9009,
   proxy: {
-    '/member/api/goods': constants.loginTargets[menu || common],
+    '/api/member': constants.loginTargets[menu || common],
+    '/api/goods': constants.loginTargets[menu || common],
   },
 }

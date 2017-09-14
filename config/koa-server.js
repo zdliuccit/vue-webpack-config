@@ -50,13 +50,13 @@ const middleWares = [
   convert(webpackHotMiddleware(clientCompiler)),
   // 手动设置cookie方法
   setCookieMiddleware,
-  // 路由
-  KoaRouter.middleware(),
   // http中间件
   httpMiddleware(),
   // 插入自定义中间件
   ...appConfig.middleWares,
-  // 代理
+  // 路由
+  KoaRouter.middleware(),
+  // 代理中间件
   proxyMiddleware(),
 ]
 
