@@ -1,5 +1,6 @@
 /**
- * Created by liuzhengdong on 2017/9/6.
+ * http代理中间件 匹配代理、请求重定向
+ * 获取app.config.js配置文件，匹配proxy
  */
 const path = require('path')
 const urlUtils = require('url')
@@ -59,13 +60,16 @@ module.exports = function () {
     return next()
   }
 
+  /**
+   * 顺序执行async函数
+   */
   return compose([
     preProxyMiddleware,
     koaHttpProxy('0', {
       // 不解析body，不限制body大小
       parseReqBody: false,
       /**
-       * 发出代理请求前的回调
+       * 发出代理请求前的回调,更改头文件
        * @param {Object} proxyReqOpts - 代理请求选项
        * @param {ctx} ctx - koa ctx
        * @return {Promise.<*>} *
@@ -82,7 +86,7 @@ module.exports = function () {
           delete proxyReqOpts.headers.Origin
         }
         // 计时开始
-        ctx._proxyStartTimestamp = Date.now()
+        ctx._proxyStartTime = Date.now()
         if (!needToken) {
           return proxyReqOpts
         }
@@ -102,9 +106,9 @@ module.exports = function () {
        * @return {Promise.<*>} *
        */
       async userResDecorator(proxyRes, proxyResData, ctx) {
-        console.log('ProxyRes headers:', JSON.stringify(ctx.response.headers))
+        console.log('ProxyRes headers:', JSON.parse(JSON.stringify(ctx.response.headers)))
         const location = `${ctx._proxyTarget}${ctx.url}`
-        console.log(`Proxy request '${location}' completed(${proxyRes.statusCode}), costing ${Date.now() - ctx._proxyStartTimestamp}ms.`)
+        console.log(`Proxy request '${location}' completed(${proxyRes.statusCode}), costing ${Date.now() - ctx._proxyStartTime}ms.`)
         if (!needToken) {
           return proxyResData
         }

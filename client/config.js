@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 // 接口前自动添加api配置
 addRequestInterceptor(
   (config) => {
-    config.url = `/api${config.url}`
+    // config.url = `/api${config.url}`
     return config
   },
   (error) => {
@@ -18,10 +18,9 @@ addRequestInterceptor(
 )
 
 // 返回response前处理
-addResponseInterceptor(
-  (response) => {
+addResponseInterceptor((response) => {
     // 在这里统一前置处理请求响应
-    if (Number(response.data.code) !== 0) {
+    if (Number(response.status) !== 200) {
       // 全局notify有问题，还是自己处理吧
       return Promise.reject(response.data)
     }

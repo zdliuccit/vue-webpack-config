@@ -12,7 +12,7 @@ const defaultCookieConfig = {
   maxAge: 1000 * 60 * 60 * 24 * 365 * 20,
 }
 
-module.exports = function createRedis (/* tokenConfig */) {
+module.exports = function createRedis () {
   const cookieConfig = Object.assign({}, defaultCookieConfig)
 
   return {
@@ -22,7 +22,6 @@ module.exports = function createRedis (/* tokenConfig */) {
      * @return {Object} - 需要添加的header头
      */
     async handleRequest(ctx) {
-      // wemall2017918版本，只有网页会走node服务，所以可以加默认值
       return {
         [accessOriginHeaderName]: ctx.query.accessOrigin || 'WAP',
       }
