@@ -36,7 +36,7 @@ const devMiddleware = webpackDevMiddleware(clientCompiler, {
     poll: true
   },
 })
-// 中间件,一组Generator函数
+// 中间件,一组async函数，generator函数需要convert转换
 const middleWares = [
   // 日志记录
   loggerMiddleware,

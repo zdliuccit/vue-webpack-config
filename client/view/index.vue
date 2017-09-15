@@ -1,20 +1,22 @@
 <template>
   <div class="test">
     <div class="cc_test" @click="sendGet">demo{{ss}}</div>
+
   </div>
 </template>
 <script type="text/babel">
   export default {
     data () {
       return {
-        ss: 11112222222
+        ss: 11112222222,
+        testUrl: '/v3/assistant/coordinate/convert?key=ff0bcf778c5eeb93bd8b068b6e3f7781&locations=116.481499,39.990475|116.481499,39.990375&output=JSON'
       }
     },
     created () {
     },
     methods: {
       sendGet() {
-        this.http.get('/member/cardLevel/query')
+        this.http.get('/v3/assistant/coordinate/convert?key=ff0bcf778c5eeb93bd8b068b6e3f7781&locations=116.481499,39.990475|116.481499,39.990375&output=JSON')
           .then((resp) => {
             console.log(resp)
           })

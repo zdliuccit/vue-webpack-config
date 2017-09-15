@@ -1,5 +1,6 @@
 /**
  * http中间件
+ * 为ctx添加http方法, 然后在后续的路由中, ctx.http.get(url: '/someUrl') 即可
  */
 const axios = require('axios')
 
@@ -42,7 +43,6 @@ axiosInstance.interceptors.response.use(
 )
 
 /**
- * 为ctx添加http方法, 然后在后续的路由中, ctx.http.get(url: '/someUrl') 即可
  * @returns {Function} ctx function
  */
 module.exports = function () {

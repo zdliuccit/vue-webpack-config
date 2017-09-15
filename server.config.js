@@ -12,5 +12,6 @@ module.exports = {
   proxy: {
     '/api/member': constants.loginTargets[menu || common],
     '/api/goods': constants.loginTargets[menu || common],
+    '/v3/assistant': 'http://restapi.amap.com/v3/',
   },
 }
