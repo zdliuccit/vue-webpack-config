@@ -90,4 +90,4 @@ console.log(chalk.green('Hello %s'), name);
 * `friendly-errors-webpack-plugin`  识别某些类别的Webpack错误并进行清理，聚合和优先排序，以提供更好的开发者体验
 * `html-webpack-plugin` 优化Lodash。 这个插件用来简化创建服务于 webpack bundle 的 HTML 文件，尤其是对于在文件名中包含了 hash 值，
 
-[其他详细文案可以参考WEBPACK](http://www.css88.com/doc/webpack/)
+![其他详细文案可以参考WEBPACK](http://www.css88.com/doc/webpack/)
