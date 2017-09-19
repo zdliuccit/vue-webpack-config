@@ -16,6 +16,8 @@ const appVersion = new Date().getTime()
 function resolve (dir) {
   return path.resolve(process.cwd(), dir)
 }
+// 网站图标
+const favicon = path.join(process.cwd(), 'favicon.ico')
 
 module.exports = function (env) {
   const vueLoaderConfig = getVueLoaderConfig(env)
@@ -60,7 +62,6 @@ module.exports = function (env) {
           test: /\.json$/,
           use: ['json-loader'],
         },
-        // 独立出来, 给iframe 用,用于修改标题
         {
           test: /\.ico$/,
           use: [{
@@ -92,6 +93,7 @@ module.exports = function (env) {
       // 读取HTML模板文件，并输出HTML文件，开发环境实际输出到内存中
       new HtmlWebpackPlugin({
         appVersion,
+        favicon,
         filename: 'index.html',
         template: path.join(process.cwd(), 'index.template.ejs'),
         inject: true,
