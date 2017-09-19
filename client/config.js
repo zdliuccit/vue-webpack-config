@@ -18,7 +18,8 @@ addRequestInterceptor(
 )
 
 // 返回response前处理
-addResponseInterceptor((response) => {
+addResponseInterceptor(
+  (response) => {
     // 在这里统一前置处理请求响应
     if (Number(response.status) !== 200) {
       // 全局notify有问题，还是自己处理吧
@@ -27,9 +28,6 @@ addResponseInterceptor((response) => {
     return Promise.resolve(response.data)
   },
   (error) => {
-    // 401直接跳转到登陆页面
-    if (!IS_DEBUG && Number(error.response.status) === 401) {
-    }
     return Promise.reject(error || '出错了')
   }
 )

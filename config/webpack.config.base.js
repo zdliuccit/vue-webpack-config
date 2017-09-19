@@ -48,11 +48,11 @@ module.exports = function (env) {
         {
           test: /\.vue$/,
           include: [resolve('client')],
-          use: [vueLoaderConfig],
+          use: [vueLoaderConfig, 'eslint-loader'],
         },
         {
           test: /\.js$/,
-          use: ['babel-loader'],
+          use: ['babel-loader', 'eslint-loader'],
           exclude: /node_modules/,
         },
         // 加载json文件

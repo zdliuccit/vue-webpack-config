@@ -1,15 +1,15 @@
 import 'babel-polyfill'
 // 第三方库
 import Vue from 'vue'
-import './view/test.css'
-import './view/ss.styl'
+// reset样式
+import '@/assets/css/common.css'
+// vue config配置文件
 import './config'
 // 自己实现的方法
 import router from './router'
-// 组件入口
-// import './config'
 import App from './app.vue'
 
+/*eslint-disable*/
 new Vue({
   el: '#app',
   router,
