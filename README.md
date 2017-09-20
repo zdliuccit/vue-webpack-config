@@ -11,6 +11,10 @@
 * Eslint
 * stylus postcss
 
+```html
+$ npm i 安装npm包
+$ npm start 启动项目
+```
 
 注: 该构建用到的npm包说明参考 `doc`目录下的 npm包说明.md文档
 ### Webpack3
@@ -42,7 +46,7 @@ koa的中间件是由generator组成的。
 从第一个中间件开始执行，遇到next进入下一个中间件，一直执行到最后一个中间件，
 在逆序，执行上一个中间件next之后的代码，一直到第一个中间件执行结束才发出响应。
 
-![](doc/images/koa02.jpg)
+![](doc/images/koa2.jpg)
 
 这里Koa2的中间件必须使用ES7语法 async/await
 
@@ -121,7 +125,7 @@ process.on('SIGTERM', () => {
 基于 Promise 的 HTTP 请求客户端，可同时在浏览器和 node.js 中使用
 
 浏览器支持
-![](doc/images/axios.png)
+![](doc/images/axios.svg)
 
 使用
 ```html

@@ -1,5 +1,8 @@
 /**
  * Created by liuzhengdong on 2017/9/6.
+ * http
+ * addRequestInterceptor
+ * addResponseInterceptor
  */
 import axios from 'axios'
 

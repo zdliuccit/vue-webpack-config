@@ -17,14 +17,13 @@ module.exports = {
     },
     // 是否对样式启用px到rem的转换， 默认不开启
     enablePx2Rem: false,
-    // 待合并子工程特殊别名,sdk中内置别名，请到/node_modules/@xkeshi/koa2-vue2-sdk/config/webpack.base.conf.js
-    // 查看defaultResolveAlias变量
+    // 自定义Alias设置
     resolveAlias: {},
     // 扩展rules
     rules: [],
     // 扩展css postcss
     postcss: [],
   },
-  // 自定义中间件 推荐async函数写法
+  // 自定义中间件 async await函数写法
   middleWares: []
 }

@@ -6,7 +6,7 @@ import { addRequestInterceptor, addResponseInterceptor } from '@config/utils/htt
 Vue.use(http)
 Vue.use(VueRouter)
 
-// 接口前自动添加api配置
+// request前自动添加api配置
 addRequestInterceptor(
   (config) => {
     // config.url = `/api${config.url}`
