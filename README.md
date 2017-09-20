@@ -1,4 +1,4 @@
-# Webpack3 + Vue2 + Koa2 构建脚手架
+# Webpack3 + Vue2 + Koa2 构建应用
 
 该构建适用PC端开发，通过配置亦可支持移动端开发
 
@@ -8,6 +8,7 @@
 * Axios
 * Vue2 & vue-router
 * Es6/7
+* Eslint
 * stylus postcss
 
 
@@ -26,22 +27,23 @@ webpack 的配置项主要包括以下几点：
 * plugins: 定义一些额外的插件
 * ...
 
-webpack配置文件分三个
+webpack配置文件
 * 基础配置`webpack.config.base`
 * 开发配置`webpack.config.dev.js`
 * 生产配置`webpack.config.prod.js`
+
 Webpack配置可以参考[官方](https://webpack.js.org/configuration/) or [Webpack中文文档](http://www.css88.com/doc/webpack/)
 
 ### Koa2
 koa 是由 Express 原班人马打造的，致力于成为一个更小、更富有表现力、更健壮的 Web 框架。
 使用 koa 编写 web 应用，通过组合不同的 generator，可以免除重复繁琐的回调函数嵌套，并极大地提升错误处理的效率。
-
+Express
 Express的中间件是顺序执行，从第一个中间件执行到最后一个中间件，发出响应。
 ![](doc/images/koa01.jpg)
 
-koa的中间件是由generator组成的
-
-koa是从第一个中间件开始执行，遇到next进入下一个中间件，一直执行到最后一个中间件，在逆序，执行上一个中间件next之后的代码，一直到第一个中间件执行结束才发出响应。
+koa的中间件是由generator组成的。
+从第一个中间件开始执行，遇到next进入下一个中间件，一直执行到最后一个中间件，
+在逆序，执行上一个中间件next之后的代码，一直到第一个中间件执行结束才发出响应。
 
 ![](doc/images/koa02.jpg)
 
@@ -129,3 +131,42 @@ process.on('SIGTERM', () => {
 $ npm install axios
 ```
 
+### 使用 ESlint 进行代码检查
+特点:
+* 默认规则包含所有 JSLint、JSHint 中存在的规则，易迁移
+* 规则可配置性高：可设置「警告」、「错误」两个 error 等级，或者直接禁用
+.eslintrc.js配置文件常见的格式
+
+```html
+{
+  root: true,
+  parserOptions: { //EsLint通过parserOptions，允许指定校验的ecma的版本，及ecma的一些特性
+    ecmaVersion: 6, //指定ECMAScript支持的版本，6为ES6
+    sourceType: 'module', //指定来源的类型，有两种”script”或”module”
+    ecmaFeatures: { // ecmaFeatures指定你想使用哪些额外的语言特性
+    experimentalObjectRestSpread: true,
+    }
+  },
+  parser: 'babel-eslint', // EsLint默认使用esprima做脚本解析，也可以切换成babel-eslint解析
+  env: { // Environment可以预设好的其他环境的全局变量，如brower、node环境变量、es6环境变量、mocha环境变量等
+    browser: true,
+    node: true,
+    es6: true,
+    mocha: true
+  },
+  plugins: [ // EsLint允许使用第三方插件
+    'html',
+    'import',
+    'promise',
+  ],
+  extends: 'standard', // Extends是EsLint默认推荐的验证你可以使用配置选择哪些校验是你所需要的
+  rules: [ // 自定义规则
+  ],
+  globals: { // 即插件在执行过程中用到的其它全局变量
+  }
+}
+```
+
+### Configuration tasks/命令
+npm start: 启动开发模式下的server
+npm run build: 打包生产模式的代码
