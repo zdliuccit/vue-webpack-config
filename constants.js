@@ -7,7 +7,7 @@
 module.exports = {
   // 登陆
   loginTargets: {
-    dev: 'http://shop.dev.xkeshi.so:8082',
-    test: 'http://shop.test.xkeshi.so:8082',
+    dev: 'http://shop.dev.so:8080',
+    test: 'http://shop.test.so:8080',
   },
 }
