@@ -13,7 +13,7 @@ module.exports = {
   webpack: {
     entry: {
       app: path.join(__dirname, 'client/index.js'), // 入口
-      // vendor: ['vue', 'vue-router', 'vue-template-compiler'] // 拆分框架代码
+      vendor: ['vue', 'vue-router', 'vue-template-compiler'] // 拆分框架代码
     },
     // 是否对样式启用px到rem的转换， 默认不开启
     enablePx2Rem: false,
