@@ -7,7 +7,7 @@
 * Koa2
 * Axios
 * Vue2 & vue-router
-* Es6/7
+* Babel Es6/7
 * Eslint
 * stylus postcss
 
@@ -120,6 +120,15 @@ process.on('SIGTERM', () => {
   })
 })
 ```
+### Babel Es6/7
+* `babel-core`
+* `babel-preset-es2015`  打包了 es6 的特性 
+* `babel-preset-latest` latest是一个特殊的presets，包括了es2015，es2016，es2017的插件（目前为止，以后有es2018也会包括进去）。 即总是包含最新的编译插件。 
+
+* `babel-preset-env` 
+上面提到的各种preset的问题就是: 它们都太”重”了, 即包含了过多在某些情况下不需要的功能. 比如, 现代的浏览器大多支持ES6的generator,
+但是如果你使用babel-preset-es2015, 它会将generator函数编译为复杂的ES5代码, 这是没有必要的。
+但使用babel-preset-env, 我们可以声明环境, 然后该preset就会只编译包含我们所声明环境缺少的特性的代码，因此也是比较推荐的方式。 
 
 ###  Axios
 基于 Promise 的 HTTP 请求客户端，可同时在浏览器和 node.js 中使用
@@ -169,5 +178,5 @@ $ npm install axios
 ```
 
 ### Configuration tasks/命令
-npm start: 启动开发模式下的server
-npm run build: 打包生产模式的代码
+* npm start: 启动开发模式下的server
+* npm run build: 打包生产模式的代码
