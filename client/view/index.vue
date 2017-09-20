@@ -18,7 +18,6 @@
             console.log(resp)
           })
           .catch(() => {
-            let ss
             console.log('error............')
           })
       },

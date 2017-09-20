@@ -38,7 +38,7 @@ const devMiddleware = webpackDevMiddleware(clientCompiler, {
 })
 // 中间件,一组async函数，generator函数需要convert转换
 const middleWares = [
-  // 日志记录
+  // 打印请求与响应 日志
   loggerMiddleware,
   // 压缩响应
   require('koa-compress')(),
@@ -74,6 +74,7 @@ devMiddleware.waitUntilValid(() => {
   opn(uri)
 })
 
+// 错误处理
 app.on('error', (err) => {
   console.error('Server error: \n%s\n%s ', err.stack || '')
 })
