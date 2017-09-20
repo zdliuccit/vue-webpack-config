@@ -15,7 +15,8 @@
       sendGet() {
         this.http.get('/v3/assistant/coordinate/convert?key=ff0bcf778c5eeb93bd8b068b6e3f7781&locations=116.481499,39.990475|116.481499,39.990375&output=JSON')
           .then((resp) => {
-              console.log(resp)
+            let ss
+            console.log(resp)
           })
           .catch(() => {
             console.log('error............')
