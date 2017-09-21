@@ -1,3 +1,7 @@
+/**
+ * token处理
+ * @type {string}
+ */
 // 带token http头
 const accessTokenHeaderName = 'x-access-token'
 // 请求来源 http头

@@ -1,6 +1,6 @@
 /**
  * http中间件
- * 为ctx添加http方法, 然后在后续的路由中, ctx.http.get(url: '/someUrl') 即可
+ * 为ctx添加http方法, 然后在后续的路由中, ctx.http.get(url: '/url') 即可
  */
 const axios = require('axios')
 
