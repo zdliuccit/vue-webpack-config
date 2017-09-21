@@ -17,6 +17,10 @@ $ npm start 启动项目
 ```
 
 注: 该构建用到的npm包说明参考 `doc`目录下的 npm包说明.md文档
+
+### 目录结构
+![](doc/images/catalog.png)
+
 ### Webpack3
 ```html
 $ npm i webpack -D
@@ -136,9 +140,30 @@ process.on('SIGTERM', () => {
 浏览器支持
 ![](doc/images/axios.svg)
 
-使用
+使用HTTP请求
 ```html
-$ npm install axios
+对于在vue组件中使用：
+this.http.get(url, options)
+this.http.delete(url, options)
+this.http.post(url, data, options)
+this.http.put(url, data, options)
+
+对于非vue组件中使用：
+
+import http from '@config/utils/http'
+
+http.get(url, options)
+http.delete(url, options)
+http.post(url, data, options)
+http.put(url, data, options)
+
+注：对于get和delete方法(head和options方法其实也一样，我们不使用)，axios不会添加Content-Type头字段，
+没必要，Content-Type是对请求体(body)的类型描述，而get请求是不能携带请求体的.
+
+对于post和put方法，必须提供第二个data参数，才会添加Content-Type头字段，原因同上。如果实在没有数据提供，也请提供一个空对象，比如：
+
+this.http.post(url, {})
+
 ```
 
 ### 使用 ESlint 进行代码检查
@@ -177,6 +202,35 @@ $ npm install axios
 }
 ```
 
+### app.config.js
+```html
+module.exports = {
+  // 主服务启动端口
+  appPort: serverConfig.appPort,
+  // 代理配置，可支持多个代理，key为前缀，命中后，会把前缀去掉，转发到代理服务器
+  proxy: serverConfig.proxy,
+  // webpack服务端口,分离模式启动时用到
+  webpackDevServerPort: 9002,
+  // webpack的差异化配置
+  webpack: {
+    entry: {
+      app: path.join(__dirname, 'client/index.js'), // 入口
+      vendor: ['vue', 'vue-router', 'vue-template-compiler'] // 拆分框架代码
+    },
+    // 是否对样式启用px到rem的转换， 默认不开启
+    enablePx2Rem: false,
+    // 自定义Alias设置
+    resolveAlias: {},
+    // 扩展rules
+    rules: [],
+    // 扩展css postcss
+    postcss: [],
+  },
+  // 自定义中间件 async await函数写法
+  middleWares: []
+}
+
+```
 ### Configuration tasks/命令
 * npm start: 启动开发模式下的server
 * npm run build: 打包生产模式的代码

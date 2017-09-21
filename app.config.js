@@ -1,9 +1,11 @@
-// 子工程的一些个性化配置, sdk会读取本模块,不可随意重命名
+/**
+ * 项目的一些定制化配置
+ */
 const path = require('path')
 const serverConfig = require('./server.config')
 
 module.exports = {
-  // 主服务启动端口,不同的环境不一样,不能在这里写死
+  // 主服务启动端口
   appPort: serverConfig.appPort,
   // 代理配置，可支持多个代理，key为前缀，命中后，会把前缀去掉，转发到代理服务器
   proxy: serverConfig.proxy,
