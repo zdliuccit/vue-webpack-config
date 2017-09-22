@@ -17,8 +17,8 @@ module.exports = {
       app: path.join(__dirname, 'client/index.js'), // 入口
       vendor: ['vue', 'vue-router', 'vue-template-compiler'] // 拆分框架代码
     },
-    // 是否对样式启用px到rem的转换， 默认不开启
-    enablePx2Rem: true,
+    // 是否对样式启用px到rem的转换,配合config/utils/responsive-design.js适配移动端开发， 默认不开启
+    enablePx2Rem: false,
     // 自定义Alias设置
     resolveAlias: {},
     // 扩展rules
