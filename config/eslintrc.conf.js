@@ -31,7 +31,7 @@ module.exports = {
     // 禁止条件表达式中出现赋值操作符
     'no-cond-assign': 2,
     // 允许console语句
-    'no-console': 0,
+    'no-console': 1,
     // 允许 debugger
     'no-debugger': 0,
     // 禁止 function 定义中出现重名参数
@@ -49,7 +49,7 @@ module.exports = {
       'allow-null'
     ],
     // 禁用 alert、confirm 和 prompt
-    'no-alert': 0,
+    'no-alert': 2,
     // 禁用 eval()
     'no-eval': 2,
     // 禁用 with 语句
