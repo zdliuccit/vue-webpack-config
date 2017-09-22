@@ -2,6 +2,7 @@
  * token处理
  * @type {string}
  */
+const logger = require('./logger/koa-logger')('proxyMiddleWare')
 // 带token http头
 const accessTokenHeaderName = 'x-access-token'
 // 请求来源 http头
@@ -35,13 +36,13 @@ module.exports = function createRedis () {
      * @param {ctx} ctx - koa ctx
      */
     async handleResponse(ctx) {
-      console.log('HandleResponse headers:', ctx.response.headers)
+      logger.info('HandleResponse headers:', ctx.response.headers)
       const responseToken = ctx.response.headers[accessTokenHeaderName]
       // 如果后端响应头里没有token，则不设置cookie
       if (!responseToken) {
         return
       }
-      console.log(`Token found: ${responseToken}', it will be set to cookie.`)
+      logger.info(`Token found: ${responseToken}', it will be set to cookie.`)
       // 这里koa-better-http-proxy已经把代理响应头复制到原始响应头了
       ctx.cookies.set(cookieConfig.name, responseToken, cookieConfig)
 

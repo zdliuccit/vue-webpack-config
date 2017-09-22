@@ -7,7 +7,8 @@ const urlUtils = require('url')
 const koaHttpProxy = require('koa-better-http-proxy')
 const compose = require('koa-compose')
 const appConfig = require('./../../app.config')
-const { IS_DEBUG, IS_SERVER_PRODUCTION } = require('./env')
+const { IS_DEBUG } = require('./env')
+const logger = require('./logger/koa-logger')('proxyMiddleWare')
 
 const needToken = !!appConfig.token
 let tokenManager
@@ -48,15 +49,15 @@ module.exports = function () {
         proxyTarget = target
         ctx._proxyTarget = proxyTarget
 
-        console.log(`Match to proxy: '${prefix}' => '${proxyTarget}'`)
+        logger.info(`Match to proxy: '${prefix}' => '${proxyTarget}'`)
         break
       }
     }
     if (!proxyTarget) {
-      console.log('Proxy not found, skipped')
+      logger.info('Proxy not found, skipped')
       return Promise.resolve()
     }
-    console.log(`Request '${url}' will be proxied to '${proxyTarget + ctx.url}'`)
+    logger.info(`Request '${url}' will be proxied to '${proxyTarget + ctx.url}'`)
     return next()
   }
 
@@ -106,9 +107,9 @@ module.exports = function () {
        * @return {Promise.<*>} *
        */
       async userResDecorator(proxyRes, proxyResData, ctx) {
-        console.log('ProxyRes headers:', JSON.parse(JSON.stringify(ctx.response.headers)))
+        logger.info('ProxyRes headers:', JSON.parse(JSON.stringify(ctx.response.headers)))
         const location = `${ctx._proxyTarget}${ctx.url}`
-        console.log(`Proxy request '${location}' completed(${proxyRes.statusCode}), costing ${Date.now() - ctx._proxyStartTime}ms.`)
+        logger.info(`Proxy request '${location}' completed(${proxyRes.statusCode}), costing ${Date.now() - ctx._proxyStartTime}ms.`)
         if (!needToken) {
           return proxyResData
         }
