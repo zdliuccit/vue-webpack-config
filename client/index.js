@@ -1,4 +1,6 @@
 import 'babel-polyfill'
+// 引入响应式设计JS
+import '@config/utils/responsive-design'
 // 第三方库
 import Vue from 'vue'
 // reset样式

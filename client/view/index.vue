@@ -30,7 +30,7 @@
             this.result = resp
           })
           .catch(() => {
-            alert('出错了')
+//            alert('出错了')
           })
       },
     },

@@ -18,7 +18,7 @@ module.exports = {
       vendor: ['vue', 'vue-router', 'vue-template-compiler'] // 拆分框架代码
     },
     // 是否对样式启用px到rem的转换， 默认不开启
-    enablePx2Rem: false,
+    enablePx2Rem: true,
     // 自定义Alias设置
     resolveAlias: {},
     // 扩展rules
