@@ -37,6 +37,7 @@ function getProxyConfig () {
 module.exports = function () {
   async function preProxyMiddleware (ctx, next) {
     const url = ctx.url
+    logger.info(`Request '${url}'`)
     let proxyTarget
     let proxyConfig = getProxyConfig()
     // 在appConfig.proxy中寻找匹配前缀的代理
@@ -57,7 +58,7 @@ module.exports = function () {
       logger.info('Proxy not found, skipped')
       return Promise.resolve()
     }
-    logger.info(`Request '${url}' will be proxied to '${proxyTarget + ctx.url}'`)
+    logger.info(`Will be Agent to '${proxyTarget + ctx.url}'`)
     return next()
   }
 
@@ -75,7 +76,7 @@ module.exports = function () {
        * @param {ctx} ctx - koa ctx
        * @return {Promise.<*>} *
        */
-      async proxyReqOptDecorator(proxyReqOpts, ctx) {
+      async proxyReqOptDecorator (proxyReqOpts, ctx) {
         const parsedTarget = urlUtils.parse(ctx._proxyTarget, true)
         proxyReqOpts.host = parsedTarget.hostname
         proxyReqOpts.port = parsedTarget.port
@@ -106,8 +107,8 @@ module.exports = function () {
        * @param {ctx} ctx - koa ctx
        * @return {Promise.<*>} *
        */
-      async userResDecorator(proxyRes, proxyResData, ctx) {
-        logger.info('ProxyRes headers:', JSON.parse(JSON.stringify(ctx.response.headers)))
+      async userResDecorator (proxyRes, proxyResData, ctx) {
+        logger.info('ProxyRes headers:', '\n', JSON.stringify(ctx.response.headers, null, 2))
         const location = `${ctx._proxyTarget}${ctx.url}`
         logger.info(`Proxy request '${location}' completed(${proxyRes.statusCode}), costing ${Date.now() - ctx._proxyStartTime}ms.`)
         if (!needToken) {
