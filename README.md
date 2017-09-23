@@ -43,9 +43,6 @@ webpack配置文件
 Webpack配置可以参考[官方](https://webpack.js.org/configuration/) or [Webpack中文文档](http://www.css88.com/doc/webpack/)
 
 ### Koa2
-koa 是由 Express 原班人马打造的，致力于成为一个更小、更富有表现力、更健壮的 Web 框架。
-使用 koa 编写 web 应用，通过组合不同的 generator，可以免除重复繁琐的回调函数嵌套，并极大地提升错误处理的效率。
-
 koa的中间件是由generator组成的。
 从第一个中间件开始执行，遇到next进入下一个中间件，一直执行到最后一个中间件，
 在逆序，执行上一个中间件next之后的代码，一直到第一个中间件执行结束才发出响应。
@@ -129,10 +126,9 @@ process.on('SIGTERM', () => {
 * `babel-preset-es2015`  打包了 es6 的特性 
 * `babel-preset-latest` latest是一个特殊的presets，包括了es2015，es2016，es2017的插件（目前为止，以后有es2018也会包括进去）。 即总是包含最新的编译插件。 
 
-* `babel-preset-env` 
-上面提到的各种preset的问题就是: 它们都太”重”了, 即包含了过多在某些情况下不需要的功能. 比如, 现代的浏览器大多支持ES6的generator,
-但是如果你使用babel-preset-es2015, 它会将generator函数编译为复杂的ES5代码, 这是没有必要的。
-但使用babel-preset-env, 我们可以声明环境, 然后该preset就会只编译包含我们所声明环境缺少的特性的代码，因此也是比较推荐的方式。 
+* `babel-preset-env`
+
+推荐使用`babel-preset-env`，其他模式会把浏览器支持的一些es6/7新特性转成ES5代码，有点浪费。
 
 ###  Axios
 基于 Promise 的 HTTP 请求客户端，可同时在浏览器和 node.js 中使用
@@ -157,10 +153,7 @@ http.delete(url, options)
 http.post(url, data, options)
 http.put(url, data, options)
 
-注：对于get和delete方法(head和options方法其实也一样，我们不使用)，axios不会添加Content-Type头字段，
-没必要，Content-Type是对请求体(body)的类型描述，而get请求是不能携带请求体的.
-
-对于post和put方法，必须提供第二个data参数，才会添加Content-Type头字段，原因同上。如果实在没有数据提供，也请提供一个空对象，比如：
+对于post和put方法，必须提供第二个data参数，即提供一个空对象，比如：
 
 this.http.post(url, {})
 
