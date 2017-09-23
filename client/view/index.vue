@@ -23,7 +23,8 @@
       }
     },
     methods: {
-      sendGet() {
+      sendGet () {
+        this.warn('开始请求')
         this.result = ''
         this.http.get(this.testUrl)
           .then((resp) => {
