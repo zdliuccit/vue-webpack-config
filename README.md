@@ -224,6 +224,17 @@ module.exports = {
 }
 
 ```
+### logger日志
+logger只在非生产环境起作用
+
+```html
+this.log(msg)
+this.info(msg)
+this.warn(msg)
+this.error(msg)
+```
+
+
 ### Configuration tasks/命令
 * npm start: 启动开发模式下的server
 * npm run build: 打包生产模式的代码
