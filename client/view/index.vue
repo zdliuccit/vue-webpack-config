@@ -7,7 +7,7 @@
       <div>测试接口: {{testUrl}}</div>
       <div>
         <button class="cs-btn" @click="sendGet">测试</button>
-        <button class="cs-btn" @click="got">跳转</button>
+        <button class="cs-btn">跳转</button>
       </div>
       <div>返回结果: {{result}}</div>
     </div>
