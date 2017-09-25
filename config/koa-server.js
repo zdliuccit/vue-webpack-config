@@ -20,6 +20,7 @@ const setCookieMiddleware = require('./utils/setCookieMiddleWare')
 const httpMiddleware = require('./utils/httpMiddleWare')
 const proxyMiddleware = require('./utils/proxyMiddleWare')
 const errorMiddleware = require('./utils/errorMiddleWare')
+const spaMiddleWare = require('./utils/spaMiddleWare')
 
 const app = new Koa()
 const uri = 'http://' + currentIP + ':' + appConfig.appPort
@@ -36,6 +37,7 @@ const devMiddleware = webpackDevMiddleware(clientCompiler, {
     poll: true
   },
 })
+
 // 中间件,一组async函数，generator函数需要convert转换
 const middleWares = [
   // 打印请求与响应 日志
@@ -52,6 +54,8 @@ const middleWares = [
   setCookieMiddleware,
   // http中间件
   httpMiddleware(),
+  // spa单页应用处理,非api后段请求返回index.html
+  spaMiddleWare(),
   // 插入自定义中间件
   ...appConfig.middleWares,
   // 路由
