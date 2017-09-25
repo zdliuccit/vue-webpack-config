@@ -7,6 +7,7 @@
       <div>测试接口: {{testUrl}}</div>
       <div>
         <button class="cs-btn" @click="sendGet">测试</button>
+        <button class="cs-btn" @click="got">跳转</button>
       </div>
       <div>返回结果: {{result}}</div>
     </div>
@@ -24,14 +25,18 @@
     },
     methods: {
       sendGet () {
+        this.log('开始请求')
+        this.info('开始请求')
         this.warn('开始请求')
+        this.error('开始请求')
+
         this.result = ''
         this.http.get(this.testUrl)
           .then((resp) => {
             this.result = resp
           })
           .catch(() => {
-//            alert('出错了')
+            this.error('出错了')
           })
       },
     },
@@ -56,6 +61,7 @@
       padding: 3px 10px;
       border: 1px solid #ccc;
       background-color: #fff;
+      margin-right: 30px;
       border-radius: 6px;
     }
   }

@@ -19,8 +19,8 @@ class Logger {
  * @type {{info: string, log: string, warn: string, error: string}}
  */
 const methods = {
-  info: 'color:#33cc33',
-  log: 'color: #cc33cc',
+  log: 'color: green',
+  info: 'color:#6495ED',
   warn: 'color: #cc33cc',
   error: 'color: red',
 }
@@ -58,9 +58,9 @@ class VueLogger {
         const filePath = vm.$options._parentVnode.componentOptions.Ctor.options.__file
         // 截取组件名称
         const componentName = filePath.slice(filePath.lastIndexOf('/') + 1) || '(unkonwn component name)'
-        // 当前路由名称
-        const routeName = vm.$route.name || '(unkonwn route name)'
-        logger[method].call(logger, ...args, `@${componentName}`, `#${routeName}`)
+        // 当前路由路径
+        const fullPath = vm.$route.fullPath || '(unkonwn route fullPath)'
+        logger[method].call(logger, ...args, `@${componentName}`, `#${fullPath}`)
       }
     })
   }

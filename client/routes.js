@@ -5,7 +5,7 @@ const routes = [
     path: '/',
     component: main,
     meta: { title: '首页' }
-  }
+  },
 ]
 
 export default routes
