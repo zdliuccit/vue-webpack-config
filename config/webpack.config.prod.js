@@ -35,7 +35,7 @@ config.plugins = (config.plugins || []).concat([
   new webpack.DefinePlugin({
     'process.env': {
       //注意一个单引号一个双引号…… 这里是要将 "production" 替换到文件里面
-      NODE_ENV: JSON.stringify("producion"),
+      NODE_ENV: JSON.stringify("production"),
       VUE_ENV: JSON.stringify("client"),
     },
   }),
