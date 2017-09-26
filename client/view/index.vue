@@ -32,7 +32,10 @@
         this.info('开始请求')
         this.warn('开始请求')
         this.error('开始请求')
+<<<<<<< HEAD
         let ss21
+=======
+>>>>>>> parent of cb3f8cd... 测试git钩子函数
         this.result = ''
         this.http.get(this.testUrl)
           .then((resp) => {
