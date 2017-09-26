@@ -32,7 +32,7 @@
         this.info('开始请求')
         this.warn('开始请求')
         this.error('开始请求')
-        let ss2
+        let ss21
         this.result = ''
         this.http.get(this.testUrl)
           .then((resp) => {
