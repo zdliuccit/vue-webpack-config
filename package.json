@@ -72,6 +72,7 @@
     "postcss": "6.0.10",
     "postcss-loader": "2.0.6",
     "postcss-pxtorem": "4.0.1",
+    "pre-commit": "^1.2.2",
     "progressbar.js": "1.0.1",
     "style-loader": "0.18.2",
     "stylus": "0.54.5",
