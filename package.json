@@ -7,7 +7,7 @@
     "start": "cross-env NODE_ENV=development WEBPACK_MODE=middleware node config/index.js",
     "build": "rimraf public && webpack --progress --hide-modules --config config/webpack.config.prod.js",
     "lint:watch": "eslint --ext .js",
-    "check": "eslint ./client --cache --ignore-pattern .gitignore",
+    "check": "eslint ./client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
