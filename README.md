@@ -195,6 +195,9 @@ this.http.post(url, {})
 }
 ```
 
+### pre-commit钩子函数
+github提交前验证eslint规则，通过才能提交
+
 ### app.config.js
 ```html
 module.exports = {
@@ -238,5 +241,6 @@ this.error(msg)
 ### Configuration tasks/命令
 * npm start: 启动开发模式下的server
 * npm run build: 打包生产模式的代码
+* npm run fix-client: 修复大部分Eslint规则
 
 继续完善....
