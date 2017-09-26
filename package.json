@@ -1,5 +1,5 @@
 {
-  "name": "vue-wepack-mobile",
+  "name": "vue-webpack-config",
   "version": "1.0.0",
   "description": "This is vue2 and webpack2 Demo.",
   "main": "index.js",
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zdliuccit/vue-wepack-mobile.git"
+    "url": "git+https://github.com/zdliuccit/vue-webpack-config"
   },
   "keywords": [
     "vue2",
@@ -24,9 +24,9 @@
   "author": "zdliu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zdliuccit/vue-wepack-mobile/issues"
+    "url": "https://github.com/zdliuccit/vue-webpack-config/issues"
   },
-  "homepage": "https://github.com/zdliuccit/vue-wepack-mobile#readme",
+  "homepage": "https://github.com/zdliuccit/vue-webpack-config#readme",
   "devDependencies": {
     "autoprefixer": "7.1.3",
     "axios": "0.16.2",
