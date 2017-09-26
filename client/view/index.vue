@@ -24,12 +24,14 @@
       }
     },
     methods: {
+      /**
+       * 测试
+       */
       sendGet () {
         this.log('开始请求')
         this.info('开始请求')
         this.warn('开始请求')
         this.error('开始请求')
-
         this.result = ''
         this.http.get(this.testUrl)
           .then((resp) => {
