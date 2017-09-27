@@ -9,8 +9,6 @@ module.exports = {
   appPort: serverConfig.appPort,
   // 代理配置，可支持多个代理，key为前缀，命中后，会把前缀去掉，转发到代理服务器
   proxy: serverConfig.proxy,
-  // webpack服务端口,分离模式启动时用到
-  webpackDevServerPort: 9002,
   // webpack的差异化配置
   webpack: {
     entry: {
