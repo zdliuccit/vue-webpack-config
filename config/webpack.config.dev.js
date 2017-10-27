@@ -12,7 +12,7 @@ config.devtool = '#cheap-module-eval-source-map'
 
 // add hot-reload related code to entry chunks
 Object.keys(config.entry).forEach(function (name) {
-  config.entry[name] = ['webpack-hot-middleware/client?path=__webpack_hmr&timeout=2000&reload=true'].concat(config.entry[name])
+  config.entry[name] = ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'].concat(config.entry[name])
 })
 
 config.module.rules.push(

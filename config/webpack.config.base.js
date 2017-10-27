@@ -13,9 +13,11 @@ const webpackAppConfig = appConfig.webpack
 
 // 版本号
 const appVersion = new Date().getTime()
-function resolve (dir) {
+
+function resolve(dir) {
   return path.resolve(process.cwd(), dir)
 }
+
 // 网站图标
 const favicon = path.join(process.cwd(), 'favicon.ico')
 
