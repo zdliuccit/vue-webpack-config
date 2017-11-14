@@ -11,6 +11,4 @@ module.exports = {
   // 我们设置所有服务器集成部署方式都是process.env.NODE_ENV === 'production'
   // SERVER_ENV是与运维约定的一个环境变量，表示服务器环境,值可能为dev,test,pre,product
   IS_SERVER_PRODUCTION: process.env.SERVER_ENV === 'production',
-  // 是否webpack中间件模式
-  IS_WEBPACK_MIDDLEWARE: process.env.WEBPACK_MODE === 'middleware',
 }
