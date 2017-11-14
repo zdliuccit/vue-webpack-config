@@ -4,7 +4,8 @@
   "description": "This is vue2 and webpack2 Demo.",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development WEBPACK_MODE=middleware node config/index.js",
+    "start": "cross-env NODE_ENV=development node config/index.js",
+    "prod": "cross-env NODE_ENV=production node config/index.js",
     "build": "rimraf public && webpack --progress --hide-modules --config config/webpack.config.prod.js",
     "fix-client": "eslint client --ext .js,.vue --fix",
     "check-client": "eslint client --ext .js,.vue",
