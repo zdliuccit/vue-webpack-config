@@ -31,6 +31,12 @@ config.module.rules.push(
 )
 
 config.plugins = (config.plugins || []).concat([
+  new webpack.LoaderOptionsPlugin({
+    // webpack 2.0之后,这边不配置px转rem不会成功！！！蛋疼
+    options: {
+      postcss: postcss
+    },
+  }),
   // 定义全局常量
   new webpack.DefinePlugin({
     'process.env': {
