@@ -18,11 +18,19 @@ Object.keys(config.entry).forEach(function (name) {
 config.module.rules.push(
   {
     test: /\.css$/,
-    use: ['style-loader', 'css-loader', { loader: 'postcss-loader', options: { plugins: postcss } }],
+    use: ['style-loader', 'css-loader', {
+      loader: 'postcss-loader',
+      options: { plugins: postcss, sourceMap: 'inline' }
+    }],
   },
   {
     test: /\.(styl|stylus)$/,
-    use: ['style-loader', 'css-loader', 'stylus-loader', { loader: 'postcss-loader', options: { plugins: postcss } }],
+    use: ['style-loader', 'css-loader', {
+      loader: 'postcss-loader',
+      options: { plugins: postcss, sourceMap: 'inline' }
+    },
+      'stylus-loader'
+    ],
   }
 )
 config.plugins = (config.plugins || []).concat([

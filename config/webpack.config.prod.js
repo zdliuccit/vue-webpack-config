@@ -24,7 +24,7 @@ config.module.rules.push(
   {
     test: /\.styl$/,
     use: ExtractTextPlugin.extract({
-      use: ['css-loader', 'stylus-loader', { loader: 'postcss-loader', options: { plugins: postcss } }],
+      use: ['css-loader', { loader: 'postcss-loader', options: { plugins: postcss } }, 'stylus-loader'],
       fallback: 'vue-style-loader',
     }),
   }
