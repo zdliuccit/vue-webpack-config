@@ -18,14 +18,14 @@ config.module.rules.push(
     test: /\.css$/,
     use: ExtractTextPlugin.extract({
       use: ['css-loader', { loader: 'postcss-loader', options: { plugins: postcss } }],
-      fallback: 'vue-style-loader',
+      fallback: 'style-loader',
     }),
   },
   {
     test: /\.styl$/,
     use: ExtractTextPlugin.extract({
       use: ['css-loader', { loader: 'postcss-loader', options: { plugins: postcss } }, 'stylus-loader'],
-      fallback: 'vue-style-loader',
+      fallback: 'style-loader',
     }),
   }
 )
