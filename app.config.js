@@ -23,6 +23,8 @@ module.exports = {
     rules: [],
     // 扩展css postcss
     postcss: [],
+    // 定义 autoprefixer 兼容 默认内部配置为 >0.1%
+    browsers: ''
   },
   // 自定义中间件 async await函数写法
   middleWares: []

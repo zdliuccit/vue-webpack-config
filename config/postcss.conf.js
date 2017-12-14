@@ -8,7 +8,7 @@ const webpackAppConfig = require('./../app.config').webpack
 module.exports = function () {
   const posts = [
     // 添加浏览器前缀 解决兼容问题
-    autoprefixer({ browsers: '> 0.1%', }),
+    autoprefixer({ browsers: webpackAppConfig.browsers || '> 0.1%', }),
   ]
   // 是否对样式启用px到rem的转换， 默认不开启
   if (webpackAppConfig.enablePx2Rem) {
