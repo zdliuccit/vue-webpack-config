@@ -8,7 +8,6 @@ export function createRouter() {
   const router = new Router({
     mode: 'history',
     fallback: false,
-    base: '/app',
     routes
   })
 
