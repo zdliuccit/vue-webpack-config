@@ -4,7 +4,7 @@ import entry from './app.vue'
 const home = () => import('./views/home.vue')
 const routes = [
   {
-    path: '/home',
+    path: '/index',
     component: home
   },
   {
