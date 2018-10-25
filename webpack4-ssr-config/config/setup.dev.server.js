@@ -45,10 +45,6 @@ module.exports = function setupDevServer(app, uri, cb) {
     stats: {
       colors: true,
     },
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: true
-    },
   })
 
   app.use(convert(devMiddleware))

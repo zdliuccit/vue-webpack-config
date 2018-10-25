@@ -32,10 +32,6 @@ const devMiddleware = webpackDevMiddleware(clientCompiler, {
     colors: true,
   },
   noInfo: false,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: true
-  },
 })
 
 // 中间件,一组async函数，generator函数需要convert转换
