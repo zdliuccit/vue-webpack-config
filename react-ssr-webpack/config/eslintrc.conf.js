@@ -1,6 +1,6 @@
 /**
  * eslint规则配置，用于被业务工程引用
- * Created by liuzhengdong on 2018/4/3.
+ * Created by zdliuccit on 2018/11/1.
  */
 
 module.exports = {

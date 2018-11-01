@@ -1,35 +1,33 @@
 /**
  * koa2 server 入口
- * Created by zdliuccit on 2018/7/6.
+ * Created by zdliuccit on 2018/11/1.
  */
 const Koa = require('koa')
-const koaCompress = require('koa-compress')()
-const KoaRouter = require('koa-router')()
-
 const convert = require('koa-convert')
-const webpackDevMiddleware = require('koa-webpack-dev-middleware')
-const webpackHotMiddleware = require('koa-webpack-hot-middleware')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
 
+const KoaRouter = require('koa-router')()
+const koaCompress = require('koa-compress')()
 const loggerMiddleware = require('koa-logger')()
 const errorMiddleware = require('./middle/errorMiddleWare')
 const proxyMiddleware = require('./middle/proxyMiddleWare')
 const spaMiddleWare = require('./middle/spaMiddleWare')
-const currentIP = require('ip').address()
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const config = merge(require('./webpack.base.config')())
+const webpackDevMiddleware = require('koa-webpack-dev-middleware')
+const webpackHotMiddleware = require('koa-webpack-hot-middleware')
+
 const opn = require('opn')
-
-const clientCompiler = webpack(config)
-
+const config = merge(require('./webpack.config.dev'))
 const appConfig = require('./../app.config')
+const currentIP = require('ip').address()
 const uri = `http://${currentIP}:${appConfig.appPort}`
-
+const clientCompiler = webpack(config)
 const devMiddleware = webpackDevMiddleware(clientCompiler, {
   publicPath: config.output.publicPath,
   headers: { 'Access-Control-Allow-Origin': '*' },
   stats: {
     colors: true,
+    modules: false,
   },
   noInfo: false,
 })
@@ -57,9 +55,7 @@ const middleWares = [
 ]
 
 middleWares.forEach((middleware) => {
-  if (!middleware) {
-    return
-  }
+  if (!middleware) return
   app.use(middleware)
 })
 
@@ -67,7 +63,7 @@ console.log('> Starting dev server...')
 
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
-  opn(uri)
+  // opn(uri)
 })
 
 // 错误处理
@@ -75,12 +71,5 @@ app.on('error', (err) => {
   console.error('Server error: \n%s\n%s ', err.stack || '')
 })
 
-const server = app.listen(appConfig.appPort)
+app.listen(appConfig.appPort)
 
-process.on('SIGTERM', () => {
-  console.log('Stopping dev server')
-  devMiddleware.close()
-  server.close(() => {
-    process.exit(0)
-  })
-})

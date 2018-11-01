@@ -12,7 +12,7 @@ module.exports = {
   // webpack的差异化配置
   webpack: {
     entry: {
-      app: path.join(__dirname, 'src/index.js')  // 入口
+      app: path.join(__dirname, 'client/index.js')  // 入口
     },
   },
   // 自定义中间件 async await函数写法

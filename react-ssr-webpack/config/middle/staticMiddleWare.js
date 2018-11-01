@@ -1,4 +1,5 @@
 /**
+ * Created by zdliuccit on 2018/11/1.
  * 设置静态资源请求目录和设置缓存
  * @return {Promise.<void>}
  */

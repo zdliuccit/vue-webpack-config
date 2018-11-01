@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node config/index.js",
-    "start": "npm run build && cross-env NODE_ENV=production npm run dev",
-    "build": "rimraf dist && npm run build:client && npm run build:server",
-    "build:client": "cross-env NODE_ENV=production webpack --config config/webpack.client.config.js --progress --hide-modules",
-    "build:server": "cross-env NODE_ENV=production webpack --config config/webpack.server.config.js --progress --hide-modules",
+    "start": "node config/index.js",
+    "build": "rimraf dist && cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --hide-modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "zdliuccit",
@@ -23,7 +20,11 @@
   ],
   "dependencies": {
     "react": "^16.6.0",
-    "react-dom": "^16.6.0"
+    "react-dom": "^16.6.0",
+    "react-redux": "^5.1.0",
+    "react-router": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6"
   },
   "devDependencies": {
     "@babel/core": "7.1.2",

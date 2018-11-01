@@ -44,6 +44,7 @@ module.exports = function setupDevServer(app, uri, cb) {
     headers: { 'Access-Control-Allow-Origin': '*' },
     stats: {
       colors: true,
+      modules: false,
     },
   })
 

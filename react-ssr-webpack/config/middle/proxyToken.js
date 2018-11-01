@@ -1,4 +1,5 @@
 /**
+ * Created by zdliuccit on 2018/11/1.
  * proxyMiddleWare中间件token处理
  * @type {string}
  */

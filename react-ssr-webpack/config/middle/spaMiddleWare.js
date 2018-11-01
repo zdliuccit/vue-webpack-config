@@ -1,4 +1,5 @@
 /**
+ * Created by zdliuccit on 2018/11/1.
  * 基于 https://github.com/bripkens/connect-history-api-fallback 改造
  */
 const path = require('path')
