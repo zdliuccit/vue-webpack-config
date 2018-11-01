@@ -23,13 +23,10 @@
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
     "react-router": "^4.3.1",
-    "redux": "^4.0.1",
-    "redux-logger": "^3.0.6"
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "7.1.2",
-    "@babel/plugin-syntax-dynamic-import": "7.0.0",
-    "@babel/plugin-syntax-jsx": "7.0.0",
     "@babel/polyfill": "7.0.0",
     "@babel/preset-env": "7.1.0",
     "@babel/preset-react": "^7.0.0",
@@ -73,6 +70,7 @@
     "postcss": "7.0.4",
     "postcss-loader": "3.0.0",
     "postcss-pxtorem": "4.0.1",
+    "react-hot-loader": "^4.3.11",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "1.1.1",

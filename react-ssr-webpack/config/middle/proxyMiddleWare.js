@@ -34,7 +34,6 @@ module.exports = function () {
         ctx.url = url.replace(prefix, '')
         proxyTarget = target
         ctx._proxyTarget = proxyTarget
-        logger.info(`Match to proxy: '${prefix}' => '${proxyTarget}'`)
         break
       }
     }

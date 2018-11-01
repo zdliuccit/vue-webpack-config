@@ -11,6 +11,18 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const config = merge(base, {
   mode: 'production',
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [ExtractCssChunks.loader, 'css-loader', 'postcss-loader'],
+      },
+      {
+        test: /\.scss$/,
+        use: [ExtractCssChunks.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+      },
+    ]
+  },
   plugins: [
     // 分离css文件
     new ExtractCssChunks({

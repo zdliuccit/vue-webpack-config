@@ -21,28 +21,22 @@ const defaultCookieConfig = {
 module.exports = function createRedis() {
   const cookieConfig = Object.assign({}, defaultCookieConfig)
   return {
-    /**
-     * 处理请求时的token操作
-     * @param {ctx} ctx - koa ctx
-     * @return {Object} - 需要添加的header头
-     */
+    // 处理请求时的token操作
     async handleRequest(ctx) {
       return {
         [accessOriginHeaderName]: ctx.query.accessOrigin || 'WAP',
       }
     },
-    /**
-     * 处理响应时的token操作
-     * @param {ctx} ctx - koa ctx
-     */
+
+    // 处理响应时的token操作
     async handleResponse(ctx) {
       logger.info('HandleResponse headers:', ctx.response.headers)
       const responseToken = ctx.response.headers[accessTokenHeaderName]
+
       // 如果后端响应头里没有token，则不设置cookie
-      if (!responseToken) {
-        return
-      }
+      if (!responseToken) return
       logger.info(`Token found: ${responseToken}', it will be set to cookie.`)
+
       // 这里koa-better-http-proxy已经把代理响应头复制到原始响应头了
       ctx.cookies.set(cookieConfig.name, responseToken, cookieConfig)
 
