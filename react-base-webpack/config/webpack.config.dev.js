@@ -7,6 +7,9 @@ const merge = require('webpack-merge')
 const base = require('./webpack.config.base')()
 const appWebpack = require('./../app.config').webpack
 
+Object.keys(appWebpack.entry).forEach(function (name) {
+  appWebpack.entry[name] = ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'].concat(appWebpack.entry[name])
+})
 const config = merge(base, {
   mode: 'development',
   devtool: '#cheap-module-source-map',
@@ -30,12 +33,7 @@ const config = merge(base, {
       },
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
   ]
 }, appWebpack)
-
-Object.keys(config.entry).forEach(function (name) {
-  config.entry[name] = ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'].concat(config.entry[name])
-})
 
 module.exports = config

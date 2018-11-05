@@ -24,6 +24,7 @@ module.exports = function () {
       path: resolve('dist'),
       filename: `[name].[${isProd ? 'chunkhash' : 'hash'}:8].js`,
       chunkFilename: '[id].js',
+      publicPath: '/'
     },
     resolve: {
       extensions: ['.js', '.jsx', '.json', '.scss'],
@@ -37,7 +38,7 @@ module.exports = function () {
         {
           test: /\.(js|jsx)$/,
           use: ['babel-loader'],
-          exclude: /node_modules/,
+          exclude: /(node_modules|bower_components)/,
         },
         {
           test: /\.json$/,
@@ -63,7 +64,7 @@ module.exports = function () {
             },
           }],
         },
-      ].concat(appConfig.webpack.rules || []),
+      ],
     },
     plugins: [
       new CaseSensitivePathsPlugin(),

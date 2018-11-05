@@ -27,7 +27,7 @@ const devMiddleware = webpackDevMiddleware(clientCompiler, {
   headers: { 'Access-Control-Allow-Origin': '*' },
   stats: {
     colors: true,
-    modules: false,
+    // modules: false,
   },
   noInfo: false,
 })
