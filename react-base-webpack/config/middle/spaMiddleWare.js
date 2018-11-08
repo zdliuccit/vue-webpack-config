@@ -67,6 +67,7 @@ module.exports = function (options) {
         res.setHeader('Content-Type', 'text/html; charset=utf-8')
         res.end(`${indexHTML}`)
         logger.info('Page routing request')
+        indexHTML = ''
       }
     } else {
       return next()
