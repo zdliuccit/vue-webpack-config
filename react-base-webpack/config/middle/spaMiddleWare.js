@@ -41,7 +41,7 @@ module.exports = function (options) {
        * 开发模式从koa2服务中获取index
        */
       await new Promise((resolve) => {
-        if (indexHTML) {
+        if (indexHTML  && !IS_DEBUG) {
           resolve()
         } else {
           require('http').get('http://' + currentIP + ':' + appConfig.appPort, (res) => {
