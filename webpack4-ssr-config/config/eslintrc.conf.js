@@ -26,8 +26,8 @@ module.exports = {
   ],
   // add your custom rules here 0忽略 1warn 2 error
   rules: {
-    // 缩进4空格 禁用2
-    'indent': [1, 2],
+    // 缩进4空格 禁用2 忽悠注释部分
+    'indent': [1, 2, { "ignoreComments": true }],
     // 禁止条件表达式中出现赋值操作符
     'no-cond-assign': 2,
     // 允许console语句

@@ -10,6 +10,8 @@ import './assets/css/reset.css'
 
 // config配置文件
 import './config'
+// 涉及到原生对象调用的插件统一放plugins目录下
+import './plugins'
 // 导出一个工厂函数，用于创建新的
 // 应用程序、router 和 store 实例
 export function createApp() {
