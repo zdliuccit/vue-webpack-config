@@ -13,19 +13,13 @@ npm run dev
 npm start
 ```
 
-
-
-
-
-
-
-
-
-
-
 ### Configuration tasks/命令
 * npm run dev : 启动开发服务
 * npm start : 启动生产服务
 * npm run build : 打包代码命令
 * npm run build:client : 打包client
 * npm run build:server : 打包server
+
+### PM2部署
+
+配置文件 pm2.config.js
