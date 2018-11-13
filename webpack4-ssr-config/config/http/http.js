@@ -15,7 +15,7 @@ const defaultHeaders = {
 // 设置默认头
 Object.assign(axios.defaults.headers.common, defaultHeaders)
 
-const methods = ['get', 'post', 'put', 'delete']
+const methods = ['get', 'post', 'put', 'delete', 'patch', 'options', 'request', 'head']
 
 const http = {}
 methods.forEach(method => {

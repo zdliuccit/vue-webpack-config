@@ -16,7 +16,8 @@ Vue.mixin(titleMixin)
 // request前自动添加api配置
 addRequestInterceptor(
   (config) => {
-    // config.url = `/api${config.url}`
+    /*统一加/api前缀*/
+    config.url = `/api${config.url}`
     return config
   },
   (error) => {
@@ -35,6 +36,15 @@ addResponseInterceptor(
     return Promise.resolve(response.data)
   },
   (error) => {
+    /*
+   * todo 统一处理500、400等错误状态
+   * 全局catch处理，这样其他地方就不需要写catch了
+   * 以防个别地方还是需要用到catch做一些特殊处理 return Promise.reject(error)
+   * */
+    const { response } = error
+    if ([500, 400].findIndex(val => val === response.status) > -1) {
+      /*todo*/
+    }
     return Promise.reject(error || '出错了')
   }
 )
