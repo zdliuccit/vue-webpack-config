@@ -28,11 +28,7 @@ addRequestInterceptor(
 // 返回response前处理
 addResponseInterceptor(
   (response) => {
-    // 在这里统一前置处理请求响应
-    if (Number(response.status) !== 200) {
-      // 全局notify有问题，还是自己处理吧
-      return Promise.reject(response.data)
-    }
+    /*todo 在这里统一前置处理请求响应 */
     return Promise.resolve(response.data)
   },
   (error) => {
@@ -41,10 +37,8 @@ addResponseInterceptor(
    * 全局catch处理，这样其他地方就不需要写catch了
    * 以防个别地方还是需要用到catch做一些特殊处理 return Promise.reject(error)
    * */
-    const { response } = error
-    if ([500, 400].findIndex(val => val === response.status) > -1) {
-      /*todo*/
-    }
+    const { response, config } = error
+    // ElementUI.Message.error(`${config.url}接口请求${response.status}了啊`)
     return Promise.reject(error || '出错了')
   }
 )
