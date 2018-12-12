@@ -34,7 +34,7 @@ module.exports = function () {
       filename: `[name].[${isProd ? 'chunkhash' : 'hash'}:8].js`,
       // 异步模块文件名
       chunkFilename: '[id].js',
-      publicPath: ''
+      publicPath: '/'
     },
     // 寻找模块时的一些缺省设置
     resolve: {
@@ -138,13 +138,13 @@ module.exports = function () {
         appVersion,
         favicon,
         filename: 'index.html',
-        dllSrc: `${vendorsManifest.name}.dll.js`,
+        dllSrc: `/${vendorsManifest.name}.dll.js`,
         template: path.join(process.cwd(), 'index.template.ejs'),
         inject: true,
-        minify: {
-          removeComments: true,        //去注释
-          collapseWhitespace: true,    //压缩空格
-        },
+        // minify: {
+        //   removeComments: true,        //去注释
+        //   collapseWhitespace: true,    //压缩空格
+        // },
       }),
       new webpack.DllReferencePlugin({
         context: path.join(process.cwd()),

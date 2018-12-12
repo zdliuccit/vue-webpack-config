@@ -16,7 +16,7 @@ let line = null
 
 router.beforeEach((to, from, next) => {
   // 进度条开始
-  if (line) line.destroy()
+  if (line) { line.destroy() }
   line = new ProgressBar.Line('body', {
     color: '#009ce5',
     strokeWidth: 0.2,

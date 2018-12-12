@@ -19,13 +19,13 @@ const mutations = {
 }
 
 const actions = {
-  increment({ state, commit }) {
+  increment({state, commit}) {
     commit('INCREMENT')
   },
-  decrement({ state, commit }) {
+  decrement({state, commit}) {
     commit('DECREMENT')
   },
-  loading({ commit }) {
+  loading({commit}) {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve()
@@ -34,7 +34,7 @@ const actions = {
       commit('INITCOUNT', 67)
     })
   },
-  resetCount({ commit }) {
+  resetCount({commit}) {
     commit('INITCOUNT', 67)
   }
 }

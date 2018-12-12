@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import http from '@config/utils/http'
 import vueLogger from '@config/utils/logger/vue-logger'
-import { addRequestInterceptor, addResponseInterceptor } from '@config/utils/http/http'
+import {addRequestInterceptor, addResponseInterceptor} from '@config/utils/http/http'
 import elementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 // 引入自定义业务组件
 import components from './components'
@@ -14,7 +15,7 @@ Vue.use(VueRouter)
 Vue.use(elementUI)
 
 components.forEach(comp => {
-  Vue.component(comp.name, comp)
+  Vue.component(`ml-${comp.name}`, comp)
 })
 
 // request前自动添加api配置
