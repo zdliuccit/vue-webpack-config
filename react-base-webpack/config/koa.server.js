@@ -24,10 +24,10 @@ const uri = `http://${currentIP}:${appConfig.appPort}`
 const clientCompiler = webpack(config)
 const devMiddleware = webpackDevMiddleware(clientCompiler, {
   publicPath: config.output.publicPath,
-  headers: { 'Access-Control-Allow-Origin': '*' },
+  headers: {'Access-Control-Allow-Origin': '*'},
   stats: {
     colors: true,
-    // modules: false,
+    modules: false,
   },
   noInfo: false,
 })

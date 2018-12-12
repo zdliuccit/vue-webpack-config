@@ -6,17 +6,17 @@ const fs = require('fs')
 const logger = require('./logger/koa-logger')('spaMiddleWare')
 const currentIP = require('ip').address()
 
-const { IS_DEBUG } = require('../utils/env')
+const {IS_DEBUG} = require('../utils/env')
 const appConfig = require('./../../app.config')
 
-const defaultOptions = { include: /^\/(api|static|public|v3)/ }
+const defaultOptions = {include: /^\/(api|static|public|v3)/}
 
 /**
  * 读取构建过的文件，public目录下
  * @param {String} filename 文件名
  * @return {String} 文件内容
  */
-function readBuiltFile (filename) {
+function readBuiltFile(filename) {
   return fs.readFileSync(path.join(process.cwd(), 'public', filename), 'utf-8')
 }
 
@@ -34,13 +34,13 @@ if (!IS_DEBUG) {
  */
 module.exports = function (options) {
   options = Object.assign({}, defaultOptions, options)
-  return async function spa (ctx, next) {
+  return async function spa(ctx, next) {
     if (!options.include.test(ctx.url)) {
       /**
        * 开发模式从koa2服务中获取index
        */
       await new Promise((resolve) => {
-        if (indexHTML) {
+        if (indexHTML && !IS_DEBUG) {
           resolve()
         } else {
           require('http').get('http://' + currentIP + ':' + appConfig.appPort, (res) => {
@@ -59,7 +59,7 @@ module.exports = function (options) {
       /**
        * 返回HTML
        */
-      function doRender () {
+      function doRender() {
         const res = ctx.res
         res.statusCode = 200
         // 这句很重要，否则会影响到weinre调试

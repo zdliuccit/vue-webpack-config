@@ -56,12 +56,12 @@ class VuexStorage {
     return {
       getters: {
         getItem: () => (key, isTemp) => {
-          const { item } = $this.checkItem(key, isTemp)
+          const {item} = $this.checkItem(key, isTemp)
           return item
         }
       },
       mutations: {
-        [$this.UPDATE_ITEM]: (state, { key, value, isTemp }) => {
+        [$this.UPDATE_ITEM]: (state, {key, value, isTemp}) => {
           const lastKey = key.pop()
           $this.checkItem(key, isTemp, false, {
             lastKey,
@@ -103,7 +103,7 @@ class VuexStorage {
           setValue = backupValue
         }
       }
-      this.$store.registerModule(setKey, { state: setValue })
+      this.$store.registerModule(setKey, {state: setValue})
     }, isTemp)
 
     this.innerOperation = false
@@ -120,7 +120,7 @@ class VuexStorage {
    */
   hyperChannel(whiteList = [], isTemp = true, ...items) {
     this.whiteList = whiteList
-    for (let { key, value } of items) {
+    for (let {key, value} of items) {
       const temp = this.getItem(key, isTemp)
       if (temp) {
         if (value instanceof Object) {
@@ -144,7 +144,7 @@ class VuexStorage {
    * @memberOf VuexStorage
    */
   removeItem(key, isTemp = true) {
-    const { isPass } = this.checkItem(key, isTemp)
+    const {isPass} = this.checkItem(key, isTemp)
 
     if (isPass) {
       VuexStorage.loopCallBack(store => {
@@ -162,7 +162,7 @@ class VuexStorage {
    * @memberOf VuexStorage
    */
   resetItem(key, isTemp = true) {
-    const { isPass } = this.checkItem(key, isTemp)
+    const {isPass} = this.checkItem(key, isTemp)
 
     if (isPass) {
       this.getBackUp = true
@@ -254,7 +254,7 @@ class VuexStorage {
     if (!isPass) {
       parentItem = undefined
     } else if (updateItem) {
-      const { lastKey, value } = updateItem
+      const {lastKey, value} = updateItem
       parentItem[lastKey] = value
     }
 
@@ -325,31 +325,15 @@ class VuexStorage {
  */
 export default function init(Vue, router, RouterWhiteList = [], cb = () => Promise.resolve()) {
   Vue.use(Vuex)
-  Vue.use(require('./storage-http'))
-
   const storage = new VuexStorage(RouterWhiteList)
   const store = new Vuex.Store(storage.generateVuexInstance())
 
   if (router) {
-    // 工作台所在的工程也统一用跳转吧，毕竟小概率事件
-    // router.addRoutes([
-    //   {
-    //     path: '*',
-    //     redirect: (to) => {
-    //       const target = '/gd/login'
-    //       // 非common工程的本地环境会死循环，处理一下
-    //       if (to.fullPath === target) {
-    //         return to
-    //       }
-    //       global.location.href = `${global.location.origin}${target}`
-    //     }
-    //   }
-    // ])
     router.beforeEach((to, from, next) => {
-      const { matched: toMatched } = to
-      const { matched: fromMatched } = from
-      const { path: fromPath } = [].concat(fromMatched).pop() || {}
-      const { path: toPath } = [].concat(toMatched).pop() || {}
+      const {matched: toMatched} = to
+      const {matched: fromMatched} = from
+      const {path: fromPath} = [].concat(fromMatched).pop() || {}
+      const {path: toPath} = [].concat(toMatched).pop() || {}
       storage.checkWhiteList(toPath, fromPath)
       cb(storage, to, from).then(() => next())
     })

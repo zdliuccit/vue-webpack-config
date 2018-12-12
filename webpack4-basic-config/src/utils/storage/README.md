@@ -18,7 +18,7 @@ npm start
 
 在最开始的时候请用以下方式实例化此方法
 ```javascript
-import VuexStorage from '@xkeshi/x-vuex-storage'
+import vueStorage from './utils/storage'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
