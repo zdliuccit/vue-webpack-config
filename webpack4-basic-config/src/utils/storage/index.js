@@ -39,7 +39,7 @@ class VuexStorage {
     /**
      * @member {string} UPDATE_ITEM 更新方法 key 值
      */
-    this.UPDATE_ITEM = 'update item'
+    this.UPDATE_ITEM = 'update_item'
     /**
      * @member {boolean} 是否获取备用仓库
      */
@@ -122,6 +122,8 @@ class VuexStorage {
     this.whiteList = whiteList
     for (let {key, value} of items) {
       const temp = this.getItem(key, isTemp)
+      console.log('value', JSON.parse(JSON.stringify(value)))
+      console.log('temp', JSON.parse(JSON.stringify(temp || '')))
       if (temp) {
         if (value instanceof Object) {
           Object.assign(value, temp)
@@ -131,6 +133,7 @@ class VuexStorage {
           value = temp
         }
       }
+      console.log('value', JSON.parse(JSON.stringify(value)))
       this.setItem(key, value, isTemp)
     }
   }
@@ -230,6 +233,7 @@ class VuexStorage {
    * @memberOf VuexStorage
    */
   checkItem(key, isTemp, isWrite = false, updateItem = undefined) {
+    debugger
     const keys = VuexStorage.getStorageRelation(isTemp)[this.getBackUp ? 1 : 0].concat(key)
     const itemRelation = []
     let parentItem = this.$store.state
@@ -330,6 +334,7 @@ export default function init(Vue, router, RouterWhiteList = [], cb = () => Promi
 
   if (router) {
     router.beforeEach((to, from, next) => {
+      debugger
       const {matched: toMatched} = to
       const {matched: fromMatched} = from
       const {path: fromPath} = [].concat(fromMatched).pop() || {}

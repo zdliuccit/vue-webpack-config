@@ -1,7 +1,7 @@
 <template>
   <div title="商家列表">
     <div class="button-bar">
-      <el-input style="width: 300px;" class="input-search" placeholder="请输入商家名称" v-model="search.keyWord"
+      <el-input class="input-search" placeholder="请输入商家名称" v-model="search.keyWord"
                 @keyup.native="doSearch">
         <div class="inline-block pointer" slot="append" @click="doSearch">
           <i class="el-icon-search"></i>
@@ -146,6 +146,7 @@
     },
     created() {
       this.$storage.hyperChannel(this.whiteList, true, {key: this.searchKey, value: this.search})
+      this.$storage.setItem('app', 123123, false)
     },
     mounted() {
       this.$message({message: '测试消息', type: 'info'})
@@ -202,6 +203,15 @@
   }
 </script>
 <style lang="stylus" ref="stylesheet/stylus" scoped>
+  .button-bar {
+    display: flex;
+    padding: 20px;
+    .input-search {
+      width: 300px;
+      margin-right: 16px;
+    }
+  }
+
   .common-pop-wrap {
     .pop-content {
       width: 220px;
