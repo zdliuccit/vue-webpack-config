@@ -51,22 +51,7 @@ module.exports = function () {
       rules: [
         {
           test: /\.vue$/,
-          use: [{
-            loader: 'vue-loader',
-            options: {
-              // 去除模板中的空格
-              preserveWhitespace: false,
-              loaders: {
-                css: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader'],
-                stylus: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
-                  { loader: 'stylus-loader', options: isProd ? {} : { sourceMap: 'inline' } },
-                ],
-                sass: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
-                  { loader: 'sass-loader', options: isProd ? {} : { sourceMap: 'inline' } },
-                ],
-              }
-            },
-          }, 'eslint-loader']
+          use: ['vue-loader', 'eslint-loader']
         },
         // js,jsx 转译
         {
@@ -83,7 +68,7 @@ module.exports = function () {
           use: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
             {
               loader: 'stylus-loader',
-              options: isProd ? {} : { sourceMap: 'inline' }
+              options: isProd ? {} : {sourceMap: 'inline'}
             }
           ]
         },
@@ -92,7 +77,7 @@ module.exports = function () {
           use: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
             {
               loader: 'sass-loader',
-              options: isProd ? {} : { sourceMap: 'inline' }
+              options: isProd ? {} : {sourceMap: 'inline'}
             }
           ]
         },
@@ -165,7 +150,7 @@ module.exports = function () {
           cssProcessorOptions: {
             // postcss那边已经处理过autoprefixer了，这里把它关掉，否则会导致浏览器前缀兼容范围问题
             autoprefixer: false,
-            discardComments: { removeAll: true }
+            discardComments: {removeAll: true}
           },
         }
       ),

@@ -51,22 +51,7 @@ module.exports = function () {
       rules: [
         {
           test: /\.vue$/,
-          use: [{
-            loader: 'vue-loader',
-            options: {
-              // 去除模板中的空格
-              preserveWhitespace: false,
-              loaders: {
-                css: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader'],
-                stylus: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
-                  {loader: 'stylus-loader', options: isProd ? {} : {sourceMap: 'inline'}},
-                ],
-                // sass: [isProd ? ExtractCssChunks.loader : 'vue-style-loader', 'css-loader', 'postcss-loader',
-                //   { loader: 'sass-loader', options: isProd ? {} : { sourceMap: 'inline' } },
-                // ],
-              }
-            },
-          }, 'eslint-loader']
+          use: ['vue-loader', 'eslint-loader']
         },
         // js,jsx 转译
         {
