@@ -39,8 +39,8 @@ module.exports = merge(config, {
       },
     }),
     new ExtractCssChunks({
-      filename: 'css/[name].[chunkhash:8].css',
-      chunkFilename: 'css/[id].[chunkhash:8].css',
+      filename: 'assets/css/[name].[chunkhash:8].css',
+      chunkFilename: 'assets/css/[id].[chunkhash:8].css',
     }),
     // 限制文件最小KB
     new webpack.optimize.MinChunkSizePlugin({

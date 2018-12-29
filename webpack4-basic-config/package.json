@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "rimraf dist && npm run dll && cross-env NODE_ENV=development node config/index.js",
-    "build": "rimraf dist && npm run dll && npm run prod",
+    "build": "rimraf dist && npm run dll &&  npm run prod",
     "dll": "webpack --progress --hide-modules --config config/webpack.config.dll.js",
     "prod": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js --progress --hide-modules",
     "fix": "eslint src --ext .js,.vue --fix",
