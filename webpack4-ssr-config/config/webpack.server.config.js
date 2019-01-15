@@ -6,15 +6,14 @@ const webpack = require('webpack')
 const path = require('path')
 const merge = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
-const config = require('./webpack.base.config')('dev')
+const baseConfig = require('./webpack.base.config')()
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
+const isProd = process.env.NODE_ENV === 'production'
 
-module.exports = merge(config, {
+module.exports = merge(baseConfig, {
   // 指定生成后的运行环境在node
   target: 'node',
-  // 设置代码调试map
-  devtool: '#cheap-module-source-map',
-  mode: 'production',
+  mode: isProd ? 'production' : 'development',
   // 配置编译的入口文件
   entry: path.join(process.cwd(), 'client/entry-server.js'),
   // 设置输出文件名，并设置模块导出为commonjs2类型
@@ -35,7 +34,7 @@ module.exports = merge(config, {
   // 默认文件名为 `vue-ssr-server-bundle.json`
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
       'process.env.VUE_ENV': '"server"'
     }),
     new VueSSRServerPlugin()

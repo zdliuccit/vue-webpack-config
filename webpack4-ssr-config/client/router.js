@@ -12,7 +12,10 @@ export function createRouter() {
   })
 
   router.beforeEach((to, from, next) => {
-    /*todo*/
+    /*todo
+    * 做权限验证的时候，服务端和客户端状态同步的时候会执行一次
+    * 建议vuex里用一个状态值控制，默认false，同步时直接next,因为服务端已经执行过。
+    * */
     next()
   })
 

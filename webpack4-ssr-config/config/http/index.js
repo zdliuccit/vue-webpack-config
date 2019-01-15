@@ -11,6 +11,6 @@ export default {
    * @param {Vue} Vue Vue
    */
   install(Vue) {
-    Vue.prototype.http = http
+    Vue.prototype.$http = http
   },
 }

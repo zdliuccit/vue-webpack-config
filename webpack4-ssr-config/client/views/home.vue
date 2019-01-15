@@ -10,7 +10,7 @@
       </div>
       <ul class="func-ul">
         <li><a @click="$router.push('/test/data')" href="javascrip:void(0);">Vuex数据处理</a></li>
-        <!--<li><a @click="$router.push('/test/ajax')" href="javascrip:void(0);">Axios ajax数据接口请求</a></li>-->
+        <li><a @click="$router.push('/test/ajax')" href="javascrip:void(0);">Axios ajax数据接口请求</a></li>
       </ul>
     </div>
   </div>

@@ -10,12 +10,6 @@ const logger = require('./../logger/koa-logger')('proxyMiddleWare')
 
 const isProd = process.env.NODE_ENV === 'production'
 
-const needToken = !!appConfig.token
-let proxyToken
-if (needToken) {
-  proxyToken = require('./proxyToken')()
-}
-
 /**
  * 代理处理中间件
  * @return {Function} koa middleware
@@ -23,7 +17,7 @@ if (needToken) {
 module.exports = function () {
   async function preProxyMiddleware(ctx, next) {
     const url = ctx.url
-    logger.info(`Request '${url}'`)
+    // logger.info(`Request '${url}'`)
     let proxyTarget
     let proxyConfig = appConfig.proxy
     // 在appConfig.proxy中寻找匹配前缀的代理
@@ -76,16 +70,7 @@ module.exports = function () {
           }
           // 计时开始
           ctx._proxyStartTime = Date.now()
-          if (!needToken) {
-            return proxyReqOpts
-          }
-          return await proxyToken.handleRequest(ctx)
-            .then((additionalHeaders) => {
-              Object.assign(proxyReqOpts.headers, additionalHeaders)
-            })
-            .then(() => {
-              return proxyReqOpts
-            })
+          return proxyReqOpts
         },
         /**
          * 代理请求被响应后的回调
@@ -95,16 +80,10 @@ module.exports = function () {
          * @return {Promise.<*>} *
          */
         async userResDecorator(proxyRes, proxyResData, ctx) {
-          logger.info('ProxyRes headers:', '\n', JSON.stringify(ctx.response.headers, null, 2))
+          // logger.info('ProxyRes headers:', '\n', JSON.stringify(ctx.response.headers, null, 2))
           const location = `${ctx._proxyTarget}${ctx.url}`
           logger.info(`Proxy request '${location}' completed(${proxyRes.statusCode}), costing ${Date.now() - ctx._proxyStartTime}ms.`)
-          if (!needToken) {
-            return proxyResData
-          }
-          return await proxyToken.handleResponse(ctx)
-            .then(() => {
-              return proxyResData
-            })
+          return proxyResData
         },
       }),
   ])

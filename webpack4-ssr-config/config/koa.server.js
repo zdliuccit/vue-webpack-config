@@ -40,7 +40,7 @@ middleWares.forEach((middleware) => {
 vueKoaSSR(app, uri)
 
 // http代理中间件
-// app.use(proxyMiddleWare())
+app.use(proxyMiddleWare())
 
 console.log(`\n> Starting server... ${uri} \n`)
 

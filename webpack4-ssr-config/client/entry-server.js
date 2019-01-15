@@ -5,6 +5,11 @@
 
 import { createApp } from './index'
 
+// 引入http请求
+import http from './../config/http/http'
+// 处理ssr期间cookies穿透
+import { setCookies } from './../config/http/http'
+
 // 客户端特定引导逻辑……
 
 const { app } = createApp()
@@ -37,11 +42,15 @@ export default context => {
       if (!matchedComponents.length) {
         return reject({ code: 404 })
       }
-
+      // SSR期间同步cookies
+      setCookies(context.cookies || {})
+      // http注入到rootState上，方便store里调用
+      store.state.$http = http
       // 使用Promise.all执行匹配到的Component的asyncData方法，即预取数据
       Promise.all(matchedComponents.map(({ asyncData }) => asyncData && asyncData({
         store,
-        route: router.currentRoute
+        router,
+        route: router.currentRoute,
       }))).then(() => {
         // 在所有预取钩子(preFetch hook) resolve 后，
         // 我们的 store 现在已经填充入渲染应用程序所需的状态。

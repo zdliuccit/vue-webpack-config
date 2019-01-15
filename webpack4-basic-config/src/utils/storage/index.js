@@ -233,7 +233,6 @@ class VuexStorage {
    * @memberOf VuexStorage
    */
   checkItem(key, isTemp, isWrite = false, updateItem = undefined) {
-    debugger
     const keys = VuexStorage.getStorageRelation(isTemp)[this.getBackUp ? 1 : 0].concat(key)
     const itemRelation = []
     let parentItem = this.$store.state
@@ -334,7 +333,6 @@ export default function init(Vue, router, RouterWhiteList = [], cb = () => Promi
 
   if (router) {
     router.beforeEach((to, from, next) => {
-      debugger
       const {matched: toMatched} = to
       const {matched: fromMatched} = from
       const {path: fromPath} = [].concat(fromMatched).pop() || {}

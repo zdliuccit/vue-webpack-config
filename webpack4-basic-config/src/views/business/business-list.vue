@@ -205,7 +205,7 @@
 <style lang="stylus" ref="stylesheet/stylus" scoped>
   .button-bar {
     display: flex;
-    padding: 20px;
+    padding: 20px ;
     .input-search {
       width: 300px;
       margin-right: 16px;

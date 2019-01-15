@@ -20,7 +20,7 @@
        * 测试
        */
       sendGet() {
-        this.http.get(this.requestUrl)
+        this.$http.get(this.requestUrl)
           .then((resp) => {
             this.result = resp
           })
