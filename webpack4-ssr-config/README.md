@@ -90,8 +90,7 @@ webpack4-ssr-config
 ```
 #### `index.js` 
 `index.js` 是我们应用程序的「通用 entry」,对外导出一个 createApp 函数。这里使用工厂模式为为每个请求创建一个新的根 Vue 实例，
-从而避免server端单例模式，如果我们在多个请求之间使用一个共享的实例，很容易导致交叉请求状态污染 (cross-request state pollution)。
-
+从而避免server端单例模式，如果我们在多个请求之间使用一个共享的实例，很容易导致交叉请求状态污染。
 #### `entry-client.js`:
 
 客户端 entry 只需创建应用程序，并且将其挂载到 DOM 中：
@@ -245,7 +244,7 @@ export function createStore() {
 }
 ```
 
-### http请求
+### Http请求
 http使用Axios库封装
 
 ```js
@@ -344,7 +343,7 @@ addResponseInterceptor(
   }
 )
 ```
-这样，.vue中间中直接调用this.$http.get()等等
+这样，.vue中间中直接调用this.$http.get()、this.$http.post()...
 
 ### cookies穿透
 在ssr期间我们需要截取客户端的cookie，保持用户会话唯一性。
@@ -415,7 +414,8 @@ app.on('error', (err) => {
 app.listen(appConfig.appPort)
 ```
 
-#### `vue.koa.ssr.js` vue koa2 ssr中间件
+#### `vue.koa.ssr.js` 
+vue koa2 ssr中间件
 
 * 开发模式直接使用`setup.dev.server.js`webpack hot热更新
 * 生产模块直接读取`dist`目录的文件
@@ -597,7 +597,7 @@ location / {
 * [pm2](http://www.cnblogs.com/chyingp/p/pm2-documentation.html)
 
 
-[Demo地址](http://www.ml-ui.com/ssr) 服务器带框垃圾，将就看看。  
+[Demo地址](http://www.ml-ui.com/ssr) 服务器带宽垃圾，将就看看。  
  
 [git仓库地址](https://github.com/zdliuccit/vue-webpack-config/tree/master/webpack4-ssr-config)
 
