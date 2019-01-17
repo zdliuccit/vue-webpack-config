@@ -1,12 +1,12 @@
 # pm2
 
-####安装
+#### 安装
 
 ```npm
 npm install pm2 -g // sudo
 ```
 
-####1、常用命令
+#### 1、常用命令
 
 * pm2  start app.js                   # 启动，守护进程。自动重启应用程序，加环境变量，比如配置 env_pro  --> 加 --env pro
 * pm restart                                # 重启

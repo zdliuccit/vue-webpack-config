@@ -376,8 +376,8 @@ addResponseInterceptor(
 * ......
 还有很多优化、深坑，看看官方文档、踩踩就知道了
 
-### koa
-官方使用express框架。express虽然现在也支持async、await写法，不过独爱koa的写法。
+### Koa
+官方使用express框架。express虽然现在也支持async、await，不过独爱koa。
 
 #### koa主文件
 ```js
@@ -420,8 +420,8 @@ app.listen(appConfig.appPort)
 * 开发模式直接使用`setup.dev.server.js`webpack hot热更新
 * 生产模块直接读取`dist`目录的文件
 
-路由
-* 接口请求进入`proxyMiddleWare.js`接口代理中间件
+路由匹配
+* 匹配proxy代理配置，接口请求进入`proxyMiddleWare.js`接口代理中间件
 * 非接口进入render(),返回html
 
 ```js
@@ -520,7 +520,7 @@ koa2的webpack热更新配置和相关中间件的代码，这里就不贴出来
 
 ## 部署
 
-### pm2
+### Pm2
 简介
 > PM2是node进程管理工具，可以利用它来简化很多node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等，而且使用非常简单。
 
@@ -562,7 +562,7 @@ pm2 start ml-app
 ```
 pm2的用法和参数说明可以参考[pm2.md](./pm2.md)，也可参考[PM2实用入门指南](http://www.cnblogs.com/chyingp/p/pm2-documentation.html)
 
-### nginx
+### Nginx
 在pm2基础上，Nginx配置upstream实现负载均衡
 
 #### 在http节点下，加入upstream节点。
@@ -601,5 +601,6 @@ location / {
  
 [git仓库地址](https://github.com/zdliuccit/vue-webpack-config/tree/master/webpack4-ssr-config)
 
+还有很多不足，后续慢慢折腾....
 
 结束语：生命的价值在于瞎折腾
