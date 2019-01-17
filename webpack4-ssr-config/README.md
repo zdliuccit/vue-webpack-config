@@ -597,9 +597,9 @@ location / {
 * [pm2](http://www.cnblogs.com/chyingp/p/pm2-documentation.html)
 
 
-[Demo](http://www.ml-ui.com/ssr)  
+[Demo地址](http://www.ml-ui.com/ssr) 服务器带框垃圾，将就看看。  
  
-[git仓库](https://github.com/zdliuccit/vue-webpack-config/tree/master/webpack4-ssr-config)
+[git仓库地址](https://github.com/zdliuccit/vue-webpack-config/tree/master/webpack4-ssr-config)
 
 
 结束语：生命的价值在于瞎折腾
