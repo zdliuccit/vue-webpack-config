@@ -368,33 +368,238 @@ addResponseInterceptor(
  }
 ......
 ```
+### 其他
+* title处理参考官方
+* 用到全局变量的第三方插件、组件如何处理等等
+* 流式渲染 
+* 预渲染 
+* ......
+还有很多优化、深坑，看看官方文档、踩踩就知道了
 
-###
+### koa
+官方使用express框架。express虽然现在也支持async、await写法，不过独爱koa的写法。
+
+#### koa主文件
+```js
+// 引入相关包和中间件等等
+const Koa = require('koa')
+...
+const appConfig = require('./../app.config')
+const uri = `http://${currentIP}:${appConfig.appPort}`
+
+// koa server
+const app = new Koa()
+
+// 定义中间件,
+const middleWares = [
+ ......
+]
+middleWares.forEach((middleware) => {
+  if (!middleware) {
+    return
+  }
+  app.use(middleware)
+})
+
+// vue ssr处理
+vueKoaSSR(app, uri)
+// http代理中间件
+app.use(proxyMiddleWare())
+
+console.log(`\n> Starting server... ${uri} \n`)
+
+// 错误处理
+app.on('error', (err) => {
+  // console.error('Server error: \n%s\n%s ', err.stack || '')
+})
+app.listen(appConfig.appPort)
+```
+
+#### `vue.koa.ssr.js` vue koa2 ssr中间件
+
+* 开发模式直接使用`setup.dev.server.js`webpack hot热更新
+* 生产模块直接读取`dist`目录的文件
+
+路由
+* 接口请求进入`proxyMiddleWare.js`接口代理中间件
+* 非接口进入render(),返回html
+
+```js
+const fs = require('fs')
+const path = require('path')
+const LRU = require('lru-cache')
+const { createBundleRenderer } = require('vue-server-renderer')
+const isProd = process.env.NODE_ENV === 'production'
+const proxyConfig = require('./../app.config').proxy
+const setUpDevServer = require('./setup.dev.server')
+
+module.exports = function (app, uri) {
+
+  const renderData = (ctx, renderer) => {
+    const context = {
+      url: ctx.url,
+      title: 'Vue Koa2 SSR',
+      cookies: ctx.request.headers.cookie
+    }
+    return new Promise((resolve, reject) => {
+      renderer.renderToString(context, (err, html) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve(html)
+      })
+    })
+  }
+
+  function createRenderer(bundle, options) {
+    return createBundleRenderer(bundle, Object.assign(options, {
+      cache: LRU({
+        max: 1000,
+        maxAge: 1000 * 60 * 15
+      }),
+      runInNewContext: false
+    }))
+  }
+
+  function resolve(dir) {
+    return path.resolve(process.cwd(), dir)
+  }
+
+  let renderer
+  if (isProd) {
+    // prod mode
+    const template = fs.readFileSync(resolve('dist/index.html'), 'utf-8')
+    const bundle = require(resolve('dist/vue-ssr-server-bundle.json'))
+    const clientManifest = require(resolve('dist/vue-ssr-client-manifest.json'))
+    renderer = createRenderer(bundle, {
+      template,
+      clientManifest
+    })
+  } else {
+    // dev mode
+    setUpDevServer(app, uri, (bundle, options) => {
+        try {
+          renderer = createRenderer(bundle, options)
+        } catch (e) {
+          console.log('\nbundle error', e)
+        }
+      }
+    )
+  }
+  app.use(async (ctx, next) => {
+    if (!renderer) {
+      ctx.type = 'html'
+      return ctx.body = 'waiting for compilation... refresh in a moment.';
+    }
+    if (Object.keys(proxyConfig).findIndex(vl => ctx.url.startsWith(vl)) > -1) {
+      return next()
+    }
+    let html, status
+    try {
+      status = 200
+      html = await renderData(ctx, renderer)
+    } catch (e) {
+      console.log('\ne', e)
+      if (e.code === 404) {
+        status = 404
+        html = '404 | Not Found'
+      } else {
+        status = 500
+        html = '500 | Internal Server Error'
+      }
+    }
+    ctx.type = 'html'
+    ctx.status = status ? status : ctx.status
+    ctx.body = html
+  })
+}
+```
+#### `setup.dev.server.js`
+
+koa2的webpack热更新配置和相关中间件的代码，这里就不贴出来了,和express略有区别。
 
 ## 部署
 
 ### pm2
+简介
+> PM2是node进程管理工具，可以利用它来简化很多node应用管理的繁琐任务，如性能监控、自动重启、负载均衡等，而且使用非常简单。
+
+`pm2.config.js`配置如下
+```js
+module.exports = {
+  apps: [{
+    name: 'ml-app', // app名称
+    script: 'config/index.js', // 要运行的脚本的路径。
+    args: '', // 由传递给脚本的参数组成的字符串或字符串数​​组。
+    output: './log/out.log',
+    error: './log/error.log',
+    log: './log/combined.outerr.log',
+    merge_logs: true, // 集群的所有实例的日志文件合并
+    log_date_format: "DD-MM-YYYY",
+    instances: 4, // 进程数 1、数字 2、'max'根据cpu内核数
+    max_memory_restart: '1G', // 当内存超过1024M时自动重启
+    watching: true,
+    env_test: {
+      NODE_ENV: 'production'
+    },
+    env_production: {
+      NODE_ENV: 'production'
+    }
+  }],
+}
+```
+构建生产代码
+```npm
+npm run build 构建生产代码
+
+```
+pm2启动服务
+```npm
+初次启动
+pm2 start pm2.config.js --env production # production 对应 env_production
+or
+pm2 start ml-app
+```
+pm2的用法和参数说明可以参考[pm2.md](./pm2.md)，也可参考[PM2实用入门指南](http://www.cnblogs.com/chyingp/p/pm2-documentation.html)
+
 ### nginx
+在pm2基础上，Nginx配置upstream实现负载均衡
+
+#### 在http节点下，加入upstream节点。
+```bash
+upstream server_name {
+  server  172.16.119.198:8018 max_fails=2 fail_timeout=30s;
+  server  172.16.119.198:8019 max_fails=2 fail_timeout=30s;
+  server  172.16.119.198:8020 max_fails=2 fail_timeout=30s;
+  .....
+}
+```
+#### 将server节点下的location节点中的proxy_pass配置为：http:// + server_name，即“ http://server_name”.
+```bash
+location / { 
+  proxy_pass http://server_name;
+  proxy_set_header Host localhost;
+  proxy_set_header X-Forwarded-For $remote_addr
+}
+```
+详细配置参考文档
+
+如果应用服务是域名子路径`ssr`的话，需要注意如下
+* location除了需要设置匹配`/ssr`规则之外，还需设置接口、资源的前缀比如(/api,/dist) `location ~ /(ssr|api|dist) {...}`
+* vue的路由也该设置`base:'/ssr'`
+* `entry-server.js`里`router.push(url)`这里，url应该把`/ssr`去掉，即`router.push(url.replace('/ssr','''))`
+
+## 参考文档
+
+* [vue官方文档](https://ssr.vuejs.org/zh/)
+* [koa](https://koa.bootcss.com/)
+* [nginx](http://www.nginx.cn/doc/)
+* [pm2](http://www.cnblogs.com/chyingp/p/pm2-documentation.html)
 
 
+[Demo](http://www.ml-ui.com/ssr)  
+ 
+[git仓库](https://github.com/zdliuccit/vue-webpack-config/tree/master/webpack4-ssr-config)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+结束语：生命的价值在于瞎折腾
