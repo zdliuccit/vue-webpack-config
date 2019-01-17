@@ -13,7 +13,11 @@ const setUpDevServer = require('./setup.dev.server')
 module.exports = function (app, uri) {
 
   const renderData = (ctx, renderer) => {
-    const context = { url: ctx.url, title: 'Vue Koa2 SSR' }
+    const context = {
+      url: ctx.url,
+      title: 'Vue Koa2 SSR',
+      cookies: ctx.request.headers.cookie
+    }
     return new Promise((resolve, reject) => {
       renderer.renderToString(context, (err, html) => {
         if (err) {

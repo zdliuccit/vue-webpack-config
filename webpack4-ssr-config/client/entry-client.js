@@ -1,6 +1,6 @@
 /**
  * @file 运行于浏览器
- * Created by zdliu on 2018/7/6.
+ * Created by zdliuccit on 2018/7/6.
  * */
 import Vue from 'vue'
 

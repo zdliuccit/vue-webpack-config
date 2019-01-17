@@ -1,6 +1,6 @@
 /**
  * 运行于服务器
- * Created by zdliu on 2018/7/6.
+ * Created by zdliuccit on 2018/7/6.
  * */
 
 import { createApp } from './index'
@@ -9,8 +9,6 @@ import { createApp } from './index'
 import http from './../config/http/http'
 // 处理ssr期间cookies穿透
 import { setCookies } from './../config/http/http'
-
-// 客户端特定引导逻辑……
 
 const { app } = createApp()
 
@@ -31,7 +29,7 @@ export default context => {
       return reject({ url: fullPath })
     }
 
-    // 设置服务器端 router 的位置
+    // 设置服务器端 router 的位置,路由配置里如果设置过base，url需要把url.replace(base,'')掉，不然会404
     router.push(url)
 
     // 等到 router 将可能的异步组件和钩子函数解析完
