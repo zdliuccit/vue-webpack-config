@@ -72,7 +72,7 @@
     "koa-webpack-hot-middleware": "1.0.3",
     "lru-cache": "4.1.3",
     "memory-fs": "0.4.1",
-    "node-sass": "4.10.0",
+    "node-sass": "4.13.1",
     "opn": "5.4.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "postcss": "7.0.4",
