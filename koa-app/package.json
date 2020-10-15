@@ -1,0 +1,28 @@
+{
+  "name": "ml",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/index.js",
+  "scripts": {
+    "start": "nodemon app/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "pm2 start pm2.config.js --env production"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "7.11.5",
+    "@babel/preset-env": "7.11.5",
+    "@babel/register": "7.11.5",
+    "axios": "0.20.0",
+    "keygrip": "1.1.0",
+    "koa": "2.13.0",
+    "koa-compress": "5.0.1",
+    "koa-logger": "3.2.1",
+    "koa-router": "9.4.0",
+    "koa-session": "6.0.0",
+    "koa-static": "5.0.0",
+    "mongoose": "5.10.4",
+    "nodemon": "2.0.4"
+  }
+}
